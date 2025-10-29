@@ -2,7 +2,7 @@ disabled = false
 languageCode = "en"
 languageName = "English"
 weight = 1
-title = "Blowfish"
+title = "Hagfish"
 
 [params]
 displayName = "EN"
@@ -14,6 +14,7 @@ copyright = "Copy, _right?_ :thinking_face:"
 
   [params.author]
   name = "Yiheng Yu"
+  links = [ ]
 
 ["params.author"]
 name = "Yiheng Yu"

@@ -1,4 +1,4 @@
-colorScheme = "leaf"
+colorScheme = "cream"
 defaultAppearance = "dark"
 autoSwitchAppearance = true
 enableA11y = false
@@ -21,6 +21,7 @@ verification = { }
 rssnext = { }
 advertisement = { }
 highlightCurrentMenuArea = true
+math=true
 
 [header]
 layout = "basic"
@@ -45,15 +46,15 @@ disableHeroImageFilter = false
 homepageImage = "."
 
 [article]
-showDate = true
+showDate = "True"
 showViews = false
 showLikes = false
 showDateOnlyInArticle = false
 showDateUpdated = false
-showAuthor = true
+showAuthor = false
 showHero = false
 layoutBackgroundBlur = true
-layoutBackgroundHeaderSpace = true
+layoutBackgroundHeaderSpace = false
 showBreadcrumbs = false
 showDraftLabel = true
 showEdit = false
@@ -63,7 +64,7 @@ showHeadingAnchors = true
 showPagination = true
 invertPagination = false
 showReadingTime = false
-showTableOfContents = false
+showTableOfContents = true
 showTaxonomies = false
 showCategoryOnly = false
 showAuthorsBadges = false

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Huggingface on Blowfish</title>
+    <title>Huggingface on Hagfish</title>
     <link>http://localhost:1313/tags/huggingface/</link>
-    <description>Recent content in Huggingface on Blowfish</description>
+    <description>Recent content in Huggingface on Hagfish</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     
-    <lastBuildDate>Wed, 22 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/huggingface/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/huggingface/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>ELI5: Transformers and Decoders</title>
+      <title>ELI5 Transformers &amp; LLMs (part 1?): Attention Mechanisms</title>
       <link>http://localhost:1313/posts/1761094597752-wtf-does-decoder-do-hows-that-different-from-the-encoder-/</link>
-      <pubDate>Wed, 22 Oct 2025 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 26 Oct 2025 00:00:00 +0000</pubDate>
       
       <guid>http://localhost:1313/posts/1761094597752-wtf-does-decoder-do-hows-that-different-from-the-encoder-/</guid>
       <description></description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/posts/1761094597752-wtf-does-decoder-do-hows-that-different-from-the-encoder-/featured.png" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/posts/1761094597752-wtf-does-decoder-do-hows-that-different-from-the-encoder-/featured.jpg" />
     </item>
     
   </channel>
