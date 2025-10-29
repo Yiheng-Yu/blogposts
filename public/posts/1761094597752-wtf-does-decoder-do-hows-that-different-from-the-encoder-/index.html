@@ -15,8 +15,8 @@
 
   
   
-    <title>ELI5 Transformers & LLMs (part 1?): Attention Mechanisms &middot; Hagfish</title>
-    <meta name="title" content="ELI5 Transformers & LLMs (part 1?): Attention Mechanisms &middot; Hagfish">
+    <title>ELI5 Transformers (part 1?): Attention Mechanisms &middot; Hagfish</title>
+    <meta name="title" content="ELI5 Transformers (part 1?): Attention Mechanisms &middot; Hagfish">
   
 
   
@@ -24,7 +24,7 @@
     <meta name="description" content="a description">
   
   
-    <meta name="keywords" content="transformers,huggingface,study notes,">
+    <meta name="keywords" content="transformers,huggingface,">
   
   
   
@@ -40,7 +40,7 @@
   
   <meta property="og:url" content="http://localhost:1313/posts/1761094597752-wtf-does-decoder-do-hows-that-different-from-the-encoder-/">
   <meta property="og:site_name" content="Hagfish">
-  <meta property="og:title" content="ELI5 Transformers & LLMs (part 1?): Attention Mechanisms">
+  <meta property="og:title" content="ELI5 Transformers (part 1?): Attention Mechanisms">
   <meta property="og:description" content="a description">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
@@ -49,13 +49,12 @@
     <meta property="article:modified_time" content="2025-10-26T00:00:00+00:00">
     <meta property="article:tag" content="Transformers">
     <meta property="article:tag" content="Huggingface">
-    <meta property="article:tag" content="Study Notes">
     <meta property="og:image" content="http://localhost:1313/posts/1761094597752-wtf-does-decoder-do-hows-that-different-from-the-encoder-/featured.jpg">
 
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="http://localhost:1313/posts/1761094597752-wtf-does-decoder-do-hows-that-different-from-the-encoder-/featured.jpg">
-  <meta name="twitter:title" content="ELI5 Transformers & LLMs (part 1?): Attention Mechanisms">
+  <meta name="twitter:title" content="ELI5 Transformers (part 1?): Attention Mechanisms">
   <meta name="twitter:description" content="a description">
 
   
@@ -97,8 +96,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.80f7636d0024bb92604f9e31d4762bf0c41eb28113aedfce197b5f1ea6a504ca612f0791607880d5ce6a1031c7ceed357797e3a0c0a7e2d8b1f5034f6a8e12cf.css"
-    integrity="sha512-gPdjbQAku5JgT54x1HYr8MQesoETrt/OGXtfHqalBMphLweRYHiA1c5qEDHHzu01d5fjoMCn4tix9QNPao4Szw==">
+    href="/css/main.bundle.min.10c43533a8d9918ea81ba63d1119fdf699f977d9ba4cc7a9f7a376475698afc7a3ea7efa0c4e36296e54918244e661baa250ff7c398713b00204348f7a0af807.css"
+    integrity="sha512-EMQ1M6jZkY6oG6Y9ERn99pn5d9m6TMep96N2R1aYr8ej6n76DE42KW5UkYJE5mG6olD/fDmHE7ACBDSPegr4Bw==">
 
   
   
@@ -338,8 +337,8 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "articleSection": "",
-    "name": "ELI5 Transformers \u0026 LLMs (part 1?): Attention Mechanisms",
-    "headline": "ELI5 Transformers \u0026 LLMs (part 1?): Attention Mechanisms",
+    "name": "ELI5 Transformers (part 1?): Attention Mechanisms",
+    "headline": "ELI5 Transformers (part 1?): Attention Mechanisms",
     "description": "a description",
     
     "inLanguage": "en",
@@ -354,10 +353,10 @@
     
     "dateModified": "2025-10-26T00:00:00\u002b00:00",
     
-    "keywords": ["transformers","huggingface","study notes"],
+    "keywords": ["transformers","huggingface"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "1949"
+    "wordCount": "2464"
   }]
   </script>
 
@@ -650,7 +649,7 @@
     <header id="single_header" class="mt-5 max-w-prose">
       
       <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-        ELI5 Transformers & LLMs (part 1?): Attention Mechanisms
+        ELI5 Transformers (part 1?): Attention Mechanisms
       </h1>
       <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
         
@@ -701,7 +700,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2025-10-26T00:00:00&#43;00:00">26 October 2025</time><span class="px-2 text-primary-500">&middot;</span><span>1949 words</span>
+      <time datetime="2025-10-26T00:00:00&#43;00:00">26 October 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2464 words</span>
     
 
     
@@ -761,14 +760,14 @@
     class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#neural-network-models">Neural Network Models</a></li>
-    <li><a href="#architecture">Architecture</a>
+    <li><a href="#a-good-model-only-needs-to-be-useful">A good model only needs to be useful</a></li>
+    <li><a href="#try-it-out-its-uncanny-and-magical">Try it out! Its uncanny (and magical)</a></li>
+    <li><a href="#the-transformer-architecture">The Transformer Architecture</a>
       <ul>
         <li><a href="#attention-head">Attention head</a></li>
-        <li><a href="#so-where-are-the-parameters">So where are the parameters?</a></li>
-        <li><a href="#why">Why?</a></li>
       </ul>
     </li>
+    <li><a href="#so-its-just-a-huge-stacks-of-matirx-calculations">So it&rsquo;s just a huge stacks of matirx calculations?</a></li>
   </ul>
 </nav>
   </div>
@@ -782,14 +781,14 @@
     class="py-2 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#neural-network-models">Neural Network Models</a></li>
-    <li><a href="#architecture">Architecture</a>
+    <li><a href="#a-good-model-only-needs-to-be-useful">A good model only needs to be useful</a></li>
+    <li><a href="#try-it-out-its-uncanny-and-magical">Try it out! Its uncanny (and magical)</a></li>
+    <li><a href="#the-transformer-architecture">The Transformer Architecture</a>
       <ul>
         <li><a href="#attention-head">Attention head</a></li>
-        <li><a href="#so-where-are-the-parameters">So where are the parameters?</a></li>
-        <li><a href="#why">Why?</a></li>
       </ul>
     </li>
+    <li><a href="#so-its-just-a-huge-stacks-of-matirx-calculations">So it&rsquo;s just a huge stacks of matirx calculations?</a></li>
   </ul>
 </nav>
   </div>
@@ -807,7 +806,8 @@
         
 
         <div class="article-content max-w-prose mb-20">
-          <p>
+          <p>{{ end }}
+
 
 As someone without much backrounds in neither physics nor computer science, I find lots of available introductions on transformers very confusing, despite current Aİ bloom (the name &ldquo;GPT&rdquo; is short for &lsquo;Generative Pre-training <i>Transformer</i>&rsquo;!). Most of the articles on transformers focuses on attention mechanisms, using either <a
   href="https://peterbloem.nl/blog/transformers"
@@ -830,18 +830,20 @@ As someone without much backrounds in neither physics nor computer science, I fi
     target="_blank"
   >inside dataset iterator</a>&rsquo;. <br></p>
 <p>I took lots of notes here and there during the process of studying transformers, think now it&rsquo;s a very good time to share some of my findings. In this (or probably a series of?) blogpost(s?), I am going to collate my past notes on text-specific transformer models piece by piece in a reader-friendly manner. I hope these notes can help others alongside their studying, or being an interesting nice little piece of articles to read through.<br></p>
-<p>In this particular post, I would like to do a very brief overview of the transformer model architecture, specifically on the attention mechanism. I won&rsquo;t go metion too much math and there won&rsquo;t be any mathenathical formulas. However, I would assume readers of this silly little post already have some okay-ish background of math/ datascience, and know some very basics of neural network as well as text processing (i.e., matrix computations embeddings, tokens, model fitting etc.). <br></p>
+<p>In this particular post, I would like to do a very brief overview of the transformer model architecture, specifically on the attention mechanism. I won&rsquo;t go metion too much math and there won&rsquo;t be any mathenathical formulas. However, I would assume readers of this silly little post already have some okay-ish background of math/ datascience. (i.e., matrix computations embeddings, tokens, model fitting etc.). <br></p>
+<p>I&rsquo;ll very quickly go through some very basics on neural network model, just enough to cover what needed for this post, accompied by demo of transformer model as a proof of concept. Then, I&rsquo;ll do a quick sketch on the general architecture of transformers, and a overview of the attention mechasm.<br></p>
 
-<h2 class="relative group">Neural Network Models
-    <div id="neural-network-models" class="anchor"></div>
+<h2 class="relative group">A good model only needs to be useful
+    <div id="a-good-model-only-needs-to-be-useful" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#neural-network-models" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#a-good-model-only-needs-to-be-useful" aria-label="Anchor">#</a>
     </span>
     
 </h2>
-<p>In order to make things easier to understand, I would wish to start with an inaccuate premise: we can view neural network models as functions that takes some sort of matrix as inputs, do some sort of matrix computations, and output another matrix as the final result. What makes one neural network different from others is how the computation is carried out. It&rsquo;s like \(y=a \times x^2\) is a different function from \(y=a \times sin(x)\), only that in the case of neural network, both x and y are matrics, and the math is much complicated. When it comes to model training, we are essentially trying to find values gives best fit to the data. There&rsquo;s an important assumption here: just because model fits the data well does not mean the model describes mechanisms behind the data. For example, we <i>definitely</i> can fit \y=a \times sin(x) + b) to a normal distribution data (like distribution of customer spendings in McDonald&rsquo;s), and it&rsquo;s prob going to be a pretty good fit, but this does not mean the sine function has anything to do with explaining the normal distribution. A good model does not always need to be description, a good model just needs to be useful for its purpose.<br></p>
+<p>In order to make things easier to understand, I would wish to start with an inaccuate premise: we can view neural network models as functions that takes some sort of matrix as inputs, do some sort of matrix computations, and output another matrix as the final result. What makes one neural network different from others is how the computation is carried out. It&rsquo;s like \(y=a \times x^2\) is a different function from \(y=a \times sin(x)\), only that in the case of neural network, both x and y are matrics, and the math is much complicated. When it comes to model training, we are essentially trying to find values gives best fit to the data.<br></p>
+<p>There&rsquo;s an important assumption here: just because model fits the data well does not mean the model describes mechanisms behind the data. For example, we <i>definitely</i> can fit \(y=a \times sin(x) + b\) to a normal distribution data (like distribution of customer spendings in McDonald&rsquo;s), and it&rsquo;s prob going to be a pretty good fit, but this does not mean the sine function has anything to do with explaining the normal distribution. A good model does not always need to be description, a good model just needs to be useful for its purpose.<br></p>
 <p>Transformers are preciesly these kinds of models: they are, surprisingly good at fitting into all sorts of data whilst the math behind the model probably doesn&rsquo;t have much to do with the mechanisms behind. We don&rsquo;t know how transformers works so well for text-based tasks. At least not yet. Originally, transformer was designed as an add-on to the text-processing neural network models in order to tackle with some tricky problems (these problems are not the main forcus of the current blogpost so I&rsquo;m skipping them, but <a
   href="https://towardsdatascience.com/beautifully-illustrated-nlp-models-from-rnn-to-transformer-80d69faf2109/"
     target="_blank"
@@ -855,8 +857,18 @@ As someone without much backrounds in neither physics nor computer science, I fi
   href="https://en.wikipedia.org/wiki/Universal_approximation_theorem"
     target="_blank"
   >&lsquo;universal approximation theorem&rsquo;</a>). <br></p>
-<p>One thing that&rsquo;s very suprising is that, transformers are able to produce pretty impressive results, even if the model wasn&rsquo;t trained for the specific tasks. You can try this out yourself. I&rsquo;ll use Flan-T5 as a demo here. Flan-T5 is a variation of T5 model that fine-tuned on instruction-specific tasks. That is, we can insert some instructions before our prompt and the model shall return different results based on different instructions.
-Here&rsquo;s path to the model:<br>
+
+<h2 class="relative group">Try it out! Its uncanny (and magical)
+    <div id="try-it-out-its-uncanny-and-magical" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#try-it-out-its-uncanny-and-magical" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+<p>It is preciesly the reason why it&rsquo;s very suprising is that, transformers are able to produce pretty impressive results for tasks model that are not specifically trained for. You can try this out yourself. I&rsquo;ll use Flan-T5 as a demo here. Flan-T5 is a variation of T5 model that fine-tuned on instruction-specific tasks. That is, we can insert some instructions before our prompt and the model shall return different results based on different instructions.
+Here&rsquo;s path to the model if you wanted to learn more:<br>
 <div class="huggingface-card-wrapper">
     <a id="huggingface-b5f25da5e715a26e2d734619474d0823" target="_blank" href="https://huggingface.co/google/flan-t5-base" class="cursor-pointer">
       <div
@@ -923,53 +935,198 @@ Here&rsquo;s path to the model:<br>
 (this is python by the way)<br></p>
 <p>Before starting, you might want to install <code>transformers</code> by running <code>pip install transformers</code> in case you haven&rsquo;t done so. It&rsquo;s a library collecting huge tone of open-sourced transformer models that allows you explore around. very neat.</p>
 <p>And here&rsquo;s how you can try it out:</p>
-<div class="highlight"><pre tabindex="0" style="color:#cad3f5;background-color:#24273a;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">1</span><span><span style="color:#8bd5ca">from</span> <span style="color:#f5a97f">transformers</span> <span style="color:#8bd5ca">import</span> pipeline
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">2</span><span><span style="color:#8bd5ca">import</span> <span style="color:#f5a97f">pprint</span>  <span style="color:#6e738d;font-style:italic"># to print indented dictionary</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">3</span><span>pipe <span style="color:#91d7e3;font-weight:bold">=</span> pipeline(<span style="color:#a6da95">&#39;text2text-generation&#39;</span>, model<span style="color:#91d7e3;font-weight:bold">=</span><span style="color:#a6da95">&#34;google/flan-t5-base&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">1</span><span><span style="color:#94e2d5">from</span> <span style="color:#fab387">transformers</span> <span style="color:#94e2d5">import</span> pipeline
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">2</span><span><span style="color:#94e2d5">import</span> <span style="color:#fab387">pprint</span>  <span style="color:#6c7086;font-style:italic"># to print indented dictionary</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">3</span><span>pipe <span style="color:#89dceb;font-weight:bold">=</span> pipeline(<span style="color:#a6e3a1">&#39;text2text-generation&#39;</span>, model<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#a6e3a1">&#34;google/flan-t5-base&#34;</span>)
 </span></span></code></pre></div><p>To view the list of tasks the original T5 model fine-tuned on:</p>
-<div class="highlight"><pre tabindex="0" style="color:#cad3f5;background-color:#24273a;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">1</span><span>pprint<span style="color:#91d7e3;font-weight:bold">.</span>pp(pipe<span style="color:#91d7e3;font-weight:bold">.</span>model<span style="color:#91d7e3;font-weight:bold">.</span>config<span style="color:#91d7e3;font-weight:bold">.</span>task_specific_params)
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">1</span><span>pprint<span style="color:#89dceb;font-weight:bold">.</span>pp(pipe<span style="color:#89dceb;font-weight:bold">.</span>model<span style="color:#89dceb;font-weight:bold">.</span>config<span style="color:#89dceb;font-weight:bold">.</span>task_specific_params)
 </span></span></code></pre></div><p>Output:</p>
-<div class="highlight"><pre tabindex="0" style="color:#cad3f5;background-color:#24273a;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 1</span><span>{<span style="color:#ed8796">&#39;summarization&#39;:</span> <span style="color:#ed8796">{&#39;early_stopping&#39;:</span> <span style="color:#ed8796">True,</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 2</span><span>                   <span style="color:#ed8796">&#39;length_penalty&#39;:</span> <span style="color:#ed8796">2.0,</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 3</span><span>                   <span style="color:#ed8796">&#39;max_length&#39;:</span> <span style="color:#ed8796">200,</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 4</span><span>                   <span style="color:#ed8796">&#39;min_length&#39;:</span> <span style="color:#ed8796">30,</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 5</span><span>                   <span style="color:#ed8796">&#39;no_repeat_ngram_size&#39;:</span> <span style="color:#ed8796">3,</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 6</span><span>                   <span style="color:#ed8796">&#39;num_beams&#39;:</span> <span style="color:#ed8796">4,</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 7</span><span>                   <span style="color:#ed8796">&#39;prefix&#39;:</span> <span style="color:#ed8796">&#39;summarize:</span> <span style="color:#ed8796">&#39;</span>}<span style="color:#ed8796">,</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 8</span><span> <span style="color:#ed8796">&#39;translation_en_to_de&#39;:</span> {<span style="color:#ed8796">&#39;early_stopping&#39;:</span> <span style="color:#ed8796">True,</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2"> 9</span><span>                          <span style="color:#ed8796">&#39;max_length&#39;:</span> <span style="color:#ed8796">300,</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">10</span><span>                          <span style="color:#ed8796">&#39;num_beams&#39;:</span> <span style="color:#ed8796">4,</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">11</span><span>                          <span style="color:#ed8796">&#39;prefix&#39;:</span> <span style="color:#ed8796">&#39;translate</span> <span style="color:#ed8796">English</span> <span style="color:#ed8796">to</span> <span style="color:#ed8796">German:</span> <span style="color:#ed8796">&#39;</span>}<span style="color:#ed8796">,</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">12</span><span> <span style="color:#ed8796">&#39;translation_en_to_fr&#39;:</span> {<span style="color:#ed8796">&#39;early_stopping&#39;:</span> <span style="color:#ed8796">True,</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">13</span><span>                          <span style="color:#ed8796">&#39;max_length&#39;:</span> <span style="color:#ed8796">300,</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">14</span><span>                          <span style="color:#ed8796">&#39;num_beams&#39;:</span> <span style="color:#ed8796">4,</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">15</span><span>                          <span style="color:#ed8796">&#39;prefix&#39;:</span> <span style="color:#ed8796">&#39;translate</span> <span style="color:#ed8796">English</span> <span style="color:#ed8796">to</span> <span style="color:#ed8796">French:</span> <span style="color:#ed8796">&#39;</span>}<span style="color:#ed8796">,</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">16</span><span> <span style="color:#ed8796">&#39;translation_en_to_ro&#39;:</span> {<span style="color:#ed8796">&#39;early_stopping&#39;:</span> <span style="color:#ed8796">True,</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">17</span><span>                          <span style="color:#ed8796">&#39;max_length&#39;:</span> <span style="color:#ed8796">300,</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">18</span><span>                          <span style="color:#ed8796">&#39;num_beams&#39;:</span> <span style="color:#ed8796">4,</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">19</span><span>                          <span style="color:#ed8796">&#39;prefix&#39;:</span> <span style="color:#ed8796">&#39;translate</span> <span style="color:#ed8796">English</span> <span style="color:#ed8796">to</span> <span style="color:#ed8796">Romanian:</span> <span style="color:#ed8796">&#39;</span>}<span style="color:#ed8796">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 1</span><span>{<span style="color:#a6e3a1">&#39;summarization&#39;</span>: {<span style="color:#a6e3a1">&#39;early_stopping&#39;</span>: <span style="color:#fab387">True</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 2</span><span>                   <span style="color:#a6e3a1">&#39;length_penalty&#39;</span>: <span style="color:#fab387">2.0</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 3</span><span>                   <span style="color:#a6e3a1">&#39;max_length&#39;</span>: <span style="color:#fab387">200</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 4</span><span>                   <span style="color:#a6e3a1">&#39;min_length&#39;</span>: <span style="color:#fab387">30</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 5</span><span>                   <span style="color:#a6e3a1">&#39;no_repeat_ngram_size&#39;</span>: <span style="color:#fab387">3</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 6</span><span>                   <span style="color:#a6e3a1">&#39;num_beams&#39;</span>: <span style="color:#fab387">4</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 7</span><span>                   <span style="color:#a6e3a1">&#39;prefix&#39;</span>: <span style="color:#a6e3a1">&#39;summarize: &#39;</span>},
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 8</span><span> <span style="color:#a6e3a1">&#39;translation_en_to_de&#39;</span>: {<span style="color:#a6e3a1">&#39;early_stopping&#39;</span>: <span style="color:#fab387">True</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 9</span><span>                          <span style="color:#a6e3a1">&#39;max_length&#39;</span>: <span style="color:#fab387">300</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">10</span><span>                          <span style="color:#a6e3a1">&#39;num_beams&#39;</span>: <span style="color:#fab387">4</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">11</span><span>                          <span style="color:#a6e3a1">&#39;prefix&#39;</span>: <span style="color:#a6e3a1">&#39;translate English to German: &#39;</span>},
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">12</span><span> <span style="color:#a6e3a1">&#39;translation_en_to_fr&#39;</span>: {<span style="color:#a6e3a1">&#39;early_stopping&#39;</span>: <span style="color:#fab387">True</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">13</span><span>                          <span style="color:#a6e3a1">&#39;max_length&#39;</span>: <span style="color:#fab387">300</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">14</span><span>                          <span style="color:#a6e3a1">&#39;num_beams&#39;</span>: <span style="color:#fab387">4</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">15</span><span>                          <span style="color:#a6e3a1">&#39;prefix&#39;</span>: <span style="color:#a6e3a1">&#39;translate English to French: &#39;</span>},
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">16</span><span> <span style="color:#a6e3a1">&#39;translation_en_to_ro&#39;</span>: {<span style="color:#a6e3a1">&#39;early_stopping&#39;</span>: <span style="color:#fab387">True</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">17</span><span>                          <span style="color:#a6e3a1">&#39;max_length&#39;</span>: <span style="color:#fab387">300</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">18</span><span>                          <span style="color:#a6e3a1">&#39;num_beams&#39;</span>: <span style="color:#fab387">4</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">19</span><span>                          <span style="color:#a6e3a1">&#39;prefix&#39;</span>: <span style="color:#a6e3a1">&#39;translate English to Romanian: &#39;</span>}}
 </span></span></code></pre></div><p>The &lsquo;prefix&rsquo; here refers to the instruction that the model has been trained on (An example input would be like <i>&lsquo;translate English to German: I LOVE FISH!!!!&rsquo;</i>). And as you can see, the model was trained on translation tasks for English-German, English-French, and English-Romanian. <br></p>
 <p>..So let&rsquo;s try Spanish translation:</p>
-<div class="highlight"><pre tabindex="0" style="color:#cad3f5;background-color:#24273a;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">1</span><span><span style="color:#91d7e3">print</span>(pipe(<span style="color:#a6da95">&#39;translate English to Spanish: I love fish!!!!!&#39;</span>))
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">1</span><span><span style="color:#89dceb">print</span>(pipe(<span style="color:#a6e3a1">&#39;translate English to Spanish: I love fish!!!!!&#39;</span>))
 </span></span></code></pre></div><p>Althogh the model was not trained on Spanish translation tasks, it still produced pretty impressive results:</p>
-<div class="highlight"><pre tabindex="0" style="color:#cad3f5;background-color:#24273a;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#8087a2">1</span><span>[{<span style="color:#ed8796">&#39;generated_text&#39;:</span> <span style="color:#ed8796">&#39;Me</span> <span style="color:#ed8796">encanta</span> <span style="color:#ed8796">el</span> <span style="color:#ed8796">pescado!&#39;</span>}]
-</span></span></code></pre></div><p>There are lot of speculations on why model is able to perform such tasks. For exmaple, some researchers do suggest models that are big enough might <a
-  href="https://aclanthology.org/W19-4828/"
-    target="_blank"
-  >capture meanings behind words as well as language-specific syntax features</a>, and thus are able to convert one language to another. You can view how big the model in the demo is:</p>
-<pre tabindex="0"><code>pprint.pp(f&#34;Number of parameters: {pipe.model.num_parameters():,}&#34;)
-</code></pre><p>Output:</p>
-<pre tabindex="0"><code>&#39;Number of parameters: 247,577,856&#39;
-</code></pre>
-<h2 class="relative group">Architecture
-    <div id="architecture" class="anchor"></div>
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">1</span><span>[{<span style="color:#f38ba8">&#39;generated_text&#39;:</span> <span style="color:#f38ba8">&#39;Me</span> <span style="color:#f38ba8">encanta</span> <span style="color:#f38ba8">el</span> <span style="color:#f38ba8">pescado!&#39;</span>}]
+</span></span></code></pre></div><figure>
+<img src="LLM-BELL-CURVE.jpg" alt="drawing" width="450"/>
+<figcaption>'LLM is magic'</figcaption>
+</figure>
+There are lot of speculations on why model is able to perform such tasks. For exmaple, some researchers do suggest models that are big enough might [capture meanings behind words as well as language-specific syntax features](https://aclanthology.org/W19-4828/), and thus are able to convert one language to another. You can view how big the model in the demo is:
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">1</span><span>pprint<span style="color:#89dceb;font-weight:bold">.</span>pp(<span style="color:#f38ba8">f</span><span style="color:#a6e3a1">&#34;Number of parameters: </span><span style="color:#a6e3a1">{</span>pipe<span style="color:#89dceb;font-weight:bold">.</span>model<span style="color:#89dceb;font-weight:bold">.</span>num_parameters()<span style="color:#a6e3a1">:</span><span style="color:#a6e3a1">,</span><span style="color:#a6e3a1">}</span><span style="color:#a6e3a1">&#34;</span>)
+</span></span></code></pre></div><p>Output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">1</span><span><span style="color:#a6e3a1">&#39;Number of parameters: 247,577,856&#39;</span>
+</span></span></code></pre></div>
+<h2 class="relative group">The Transformer Architecture
+    <div id="the-transformer-architecture" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#architecture" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#the-transformer-architecture" aria-label="Anchor">#</a>
     </span>
     
 </h2>
+<p>We&rsquo;ll now take a look inside the transformer models and see what kind of math calculations is hapenning. <code>pytorch</code>, the python package that the T5 model in this demo is based off, provies very good tool for visulising model structures Using models mentioned from the previous section, if you want to look at what the model architecture, you can do so by running:</p>
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">1</span><span>pprint<span style="color:#89dceb;font-weight:bold">.</span>pp(pipe<span style="color:#89dceb;font-weight:bold">.</span>model)
+</span></span></code></pre></div><p>&hellip;which in term will give you this monstrous output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">  1</span><span>T5ForConditionalGeneration(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">  2</span><span>  (shared): <span style="color:#f9e2af">Embedding</span>(<span style="color:#fab387">32128</span>, <span style="color:#fab387">768</span>)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">  3</span><span>  (encoder): <span style="color:#f9e2af">T5Stack</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">  4</span><span>    (embed_tokens): <span style="color:#f9e2af">Embedding</span>(<span style="color:#fab387">32128</span>, <span style="color:#fab387">768</span>)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">  5</span><span>    (block): <span style="color:#f9e2af">ModuleList</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">  6</span><span>      (<span style="color:#fab387">0</span>): <span style="color:#f9e2af">T5Block</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">  7</span><span>        (layer): <span style="color:#f9e2af">ModuleList</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">  8</span><span>          (<span style="color:#fab387">0</span>): <span style="color:#f9e2af">T5LayerSelfAttention</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">  9</span><span>            (SelfAttention): <span style="color:#f9e2af">T5Attention</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 10</span><span>              (q): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 11</span><span>              (k): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 12</span><span>              (v): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 13</span><span>              (o): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 14</span><span>              (relative_attention_bias): <span style="color:#f9e2af">Embedding</span>(<span style="color:#fab387">32</span>, <span style="color:#fab387">12</span>)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 15</span><span>            )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 16</span><span>            (layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 17</span><span>            (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 18</span><span>          )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 19</span><span>          (<span style="color:#fab387">1</span>): <span style="color:#f9e2af">T5LayerFF</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 20</span><span>            (DenseReluDense): <span style="color:#f9e2af">T5DenseGatedActDense</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 21</span><span>              (wi_0): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 22</span><span>              (wi_1): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 23</span><span>              (wo): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 24</span><span>              (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 25</span><span>              (act): <span style="color:#f9e2af">NewGELUActivation</span>()
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 26</span><span>            )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 27</span><span>            (layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 28</span><span>            (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 29</span><span>          )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 30</span><span>        )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 31</span><span>      )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 32</span><span>      (<span style="color:#fab387">1</span><span style="color:#89dceb;font-weight:bold">-</span><span style="color:#fab387">11</span>): <span style="color:#fab387">11</span> x T5Block(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 33</span><span>        (layer): <span style="color:#f9e2af">ModuleList</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 34</span><span>          (<span style="color:#fab387">0</span>): <span style="color:#f9e2af">T5LayerSelfAttention</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 35</span><span>            (SelfAttention): <span style="color:#f9e2af">T5Attention</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 36</span><span>              (q): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 37</span><span>              (k): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 38</span><span>              (v): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 39</span><span>              (o): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 40</span><span>            )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 41</span><span>            (layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 42</span><span>            (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 43</span><span>          )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 44</span><span>          (<span style="color:#fab387">1</span>): <span style="color:#f9e2af">T5LayerFF</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 45</span><span>            (DenseReluDense): <span style="color:#f9e2af">T5DenseGatedActDense</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 46</span><span>              (wi_0): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 47</span><span>              (wi_1): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 48</span><span>              (wo): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 49</span><span>              (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 50</span><span>              (act): <span style="color:#f9e2af">NewGELUActivation</span>()
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 51</span><span>            )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 52</span><span>            (layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 53</span><span>            (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 54</span><span>          )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 55</span><span>        )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 56</span><span>      )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 57</span><span>    )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 58</span><span>    (final_layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 59</span><span>    (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 60</span><span>  )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 61</span><span>  (decoder): <span style="color:#f9e2af">T5Stack</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 62</span><span>    (embed_tokens): <span style="color:#f9e2af">Embedding</span>(<span style="color:#fab387">32128</span>, <span style="color:#fab387">768</span>)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 63</span><span>    (block): <span style="color:#f9e2af">ModuleList</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 64</span><span>      (<span style="color:#fab387">0</span>): <span style="color:#f9e2af">T5Block</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 65</span><span>        (layer): <span style="color:#f9e2af">ModuleList</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 66</span><span>          (<span style="color:#fab387">0</span>): <span style="color:#f9e2af">T5LayerSelfAttention</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 67</span><span>            (SelfAttention): <span style="color:#f9e2af">T5Attention</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 68</span><span>              (q): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 69</span><span>              (k): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 70</span><span>              (v): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 71</span><span>              (o): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 72</span><span>              (relative_attention_bias): <span style="color:#f9e2af">Embedding</span>(<span style="color:#fab387">32</span>, <span style="color:#fab387">12</span>)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 73</span><span>            )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 74</span><span>            (layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 75</span><span>            (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 76</span><span>          )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 77</span><span>          (<span style="color:#fab387">1</span>): <span style="color:#f9e2af">T5LayerCrossAttention</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 78</span><span>            (EncDecAttention): <span style="color:#f9e2af">T5Attention</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 79</span><span>              (q): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 80</span><span>              (k): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 81</span><span>              (v): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 82</span><span>              (o): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 83</span><span>            )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 84</span><span>            (layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 85</span><span>            (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 86</span><span>          )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 87</span><span>          (<span style="color:#fab387">2</span>): <span style="color:#f9e2af">T5LayerFF</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 88</span><span>            (DenseReluDense): <span style="color:#f9e2af">T5DenseGatedActDense</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 89</span><span>              (wi_0): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 90</span><span>              (wi_1): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 91</span><span>              (wo): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 92</span><span>              (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 93</span><span>              (act): <span style="color:#f9e2af">NewGELUActivation</span>()
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 94</span><span>            )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 95</span><span>            (layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 96</span><span>            (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 97</span><span>          )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 98</span><span>        )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 99</span><span>      )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">100</span><span>      (<span style="color:#fab387">1</span><span style="color:#89dceb;font-weight:bold">-</span><span style="color:#fab387">11</span>): <span style="color:#fab387">11</span> x T5Block(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">101</span><span>        (layer): <span style="color:#f9e2af">ModuleList</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">102</span><span>          (<span style="color:#fab387">0</span>): <span style="color:#f9e2af">T5LayerSelfAttention</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">103</span><span>            (SelfAttention): <span style="color:#f9e2af">T5Attention</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">104</span><span>              (q): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">105</span><span>              (k): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">106</span><span>              (v): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">107</span><span>              (o): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">108</span><span>            )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">109</span><span>            (layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">110</span><span>            (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">111</span><span>          )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">112</span><span>          (<span style="color:#fab387">1</span>): <span style="color:#f9e2af">T5LayerCrossAttention</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">113</span><span>            (EncDecAttention): <span style="color:#f9e2af">T5Attention</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">114</span><span>              (q): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">115</span><span>              (k): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">116</span><span>              (v): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">117</span><span>              (o): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">118</span><span>            )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">119</span><span>            (layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">120</span><span>            (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">121</span><span>          )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">122</span><span>          (<span style="color:#fab387">2</span>): <span style="color:#f9e2af">T5LayerFF</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">123</span><span>            (DenseReluDense): <span style="color:#f9e2af">T5DenseGatedActDense</span>(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">124</span><span>              (wi_0): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">125</span><span>              (wi_1): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">126</span><span>              (wo): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">127</span><span>              (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">128</span><span>              (act): <span style="color:#f9e2af">NewGELUActivation</span>()
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">129</span><span>            )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">130</span><span>            (layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">131</span><span>            (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">132</span><span>          )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">133</span><span>        )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">134</span><span>      )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">135</span><span>    )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">136</span><span>    (final_layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">137</span><span>    (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">138</span><span>  )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">139</span><span>  (lm_head): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">32128</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">140</span><span>)
+</span></span></code></pre></div><p>T5 model belongs to a sub-category of transformers called &rsquo;encoder-decoder&rsquo;. That is, it&rsquo;s a combination of an encoder followed by a decoder. This post is a general introductions of the basics, and I&rsquo;ll talk about encoder/ decoders in more detail in more detail about this in the future (if time/ etc. allowed).</p>
 <p>The general structure of a transformer model lookes like this:<br></p>
 <ol>
 <li><bullet>The input gets converted into vectors or matrics. This conversion process can vary based on different types of inputs. It can simply be some sort of look-up tables (text embedding), some matrix transformations of the raw inputs (convolution) etc.</bullet></li>
@@ -1027,7 +1184,7 @@ Here&rsquo;s path to the model:<br>
 <p>You can think each of the attention head as a mini neural network: it takes some inputs and spits out some outputs. A typical attention head works like this:</p>
 <ol>
 <li><bullet>The input matrix gets converted into multiple matices through matrix multiplication. Most current transformers converts input matrix into three smaller matrices.</bullet></li>
-<li><bullet>Two of the matrix from step (1) gets combined together using some matrix operation.</bullet></li>
+<li><bullet>Two of the matrix from step (1) gets combined together using some matrix operation, usually dot products.</bullet></li>
 <li><bullet>The third matrix from step (1) combines with output from step (2), using some other matrix operation.</bullet></li>
 </ol>
 <body>
@@ -1054,37 +1211,22 @@ Here&rsquo;s path to the model:<br>
 ╰──────────────────────────────────────────────╯</code></pre></p>
 </body>
 
-<h3 class="relative group">So where are the parameters?
-    <div id="so-where-are-the-parameters" class="anchor"></div>
+<h2 class="relative group">So it&rsquo;s just a huge stacks of matirx calculations?
+    <div id="so-its-just-a-huge-stacks-of-matirx-calculations" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#so-where-are-the-parameters" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#so-its-just-a-huge-stacks-of-matirx-calculations" aria-label="Anchor">#</a>
     </span>
     
-</h3>
-<p>So what are the parameters to be learned in this monstruous model? Whenever the model does matrix calculations, the model is really just applying different functions to the input. These functions contain their own sets of operations and rules about how the inpiut should be transformed. These are the paramers to be learned during the training. Yes, <strong>almost everything can be set as learned parameter</strong>. That&rsquo;s one of the resons why AI models are so bloody huge.<br></p>
+</h2>
+<p>In sense yes, it is. The three matrics in the attention head are called &lsquo;key&rsquo;. &lsquo;query&rsquo; and &lsquo;value&rsquo;, the idea behind these names are: &lsquo;user queries something, program looks for keys (i.e., keywords) to match with query, and value is whatever gets matched with&rsquo;. Honstly I found this explaination very confusing, since</p>
+<!-- ### So where are the parameters?
+So what are the parameters to be learned in this monstruous model? Whenever the model does matrix calculations, the model is really just applying different functions to the input. These functions contain their own sets of operations and rules about how the inpiut should be transformed. These are the paramers to be learned during the training. Yes, **almost everything can be set as learned parameter**. That's one of the resons why AI models are so bloody huge.<br>
 
-<h3 class="relative group">Why?
-    <div id="why" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#why" aria-label="Anchor">#</a>
-    </span>
-    
-</h3>
-<p>You might want to ask, how do we come up with this design? Are they specifically designed to answer some sort of linguistic research questions? Why this particular design work so well? Transformer was designed to tackle with some tricky problems faced by previous neural network designs (the history of transformer architecture is not the main focus for now, but <a
-  href="https://towardsdatascience.com/beautifully-illustrated-nlp-models-from-rnn-to-transformer-80d69faf2109/"
-    target="_blank"
-  >here&rsquo;s a good article if you were interested</a>), however, none of these problems are related to linguistics/ grammar. We don&rsquo;t know how it works nor why it works. At least not yet. For text-based models, some researchers do suggest LLM neural network <a
-  href="https://aclanthology.org/W19-4828/"
-    target="_blank"
-  >do capture informations about language features</a>, however, these discoveries are reported <em>after</em> the model was published and prob not the main motivation behind this design. It is a bit facinating that this particular design just <em>works</em>.<br></p>
-<figure>
-<img src="LLM-BELL-CURVE.jpg" alt="drawing" width="450"/>
-<figcaption>'LLM is magic'</figcaption>
-</figure>
+### Why?
+You might want to ask, how do we come up with this design? Are they specifically designed to answer some sort of linguistic research questions? Why this particular design work so well? Transformer was designed to tackle with some tricky problems faced by previous neural network designs (the history of transformer architecture is not the main focus for now, but [here's a good article if you were interested](https://towardsdatascience.com/beautifully-illustrated-nlp-models-from-rnn-to-transformer-80d69faf2109/)), however, none of these problems are related to linguistics/ grammar. We don't know how it works nor why it works. At least not yet. For text-based models, some researchers do suggest LLM neural network [do capture informations about language features](https://aclanthology.org/W19-4828/), however, these discoveries are reported *after* the model was published and prob not the main motivation behind this design. It is a bit facinating that this particular design just *works*.<br> -->
+
           
           
           

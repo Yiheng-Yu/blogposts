@@ -3,11 +3,11 @@
     src: url('/fonts/font.ttf');
 } */
 
-@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next=swap');
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next');
 
 html {
     font-family: 'Atkinson Hyperlegible Next', sans-serif;
-    font-size:125%;
+    font-size:110%;
     font-optical-sizing: auto;
 }
 
@@ -27,4 +27,12 @@ figure {
 
 bullet {
     font-size: 100%;
+}
+
+pre code {
+    background-color: rgb(0 0 0 / 0);
+    display: block;
+    max-height: 500px;  
+    overflow-y: auto; 
+    overflow-x: auto;
 }

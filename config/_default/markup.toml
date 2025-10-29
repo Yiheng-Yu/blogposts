@@ -26,7 +26,7 @@
   lineNoStart = 1
   lineNos = true
   lineNumbersInTable = false
-  style = 'catppuccin-macchiato'
+  style = 'catppuccin-mocha'
   tabWidth = 4
   wrapperClass = 'highlight'
 

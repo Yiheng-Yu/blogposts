@@ -1,11 +1,13 @@
 ---
-title: "ELI5 Transformers & LLMs (part 1?): Attention Mechanisms"
+title: "ELI5 Transformers (part 1?): Attention Mechanisms"
 date: 2025-10-26
 draft: false
 description: "a description"
 font_family: "Monospace"
-tags: ["transformers", "huggingface", "study notes"]
+tags: ["transformers", "huggingface"]
 ---
+
+{{ end }}
 {{< katex >}}
 As someone without much backrounds in neither physics nor computer science, I find lots of available introductions on transformers very confusing, despite current Aİ bloom (the name "GPT" is short for 'Generative Pre-training <i>Transformer</i>'!). Most of the articles on transformers focuses on attention mechanisms, using either [the OG transformer](https://peterbloem.nl/blog/transformers) or [the classic BERT](https://towardsdatascience.com/a-complete-guide-to-bert-with-code-9f87602e4a11/) as examples. They would spend lot of time talking about embeddings & attetions on the encoding side, and skipped most the decoding by saying 'well you just do the same thing again and there you have it!'. Well that's not very helpful isn't it. Don't get me wrong, there are a lot of very good learning materials out there, for example the amazing [interactive transofmer explainer](https://poloclub.github.io/transformer-explainer). However, I always find these heavy tutorials not very suitable for my very short attention span or the autism tendency of getting lost in details. The current naming conventions aren't helpful ether: the 'attention heads', the 'key/query/value', and all the 'GEGLU's. They feel like fancy terms to trick shareholders rather than actually describing the model itself. Makes you miss the good old days of 'RNNs' and convolutional networks.<br>
 
@@ -13,15 +15,20 @@ Finally, I've decided to bite the bullet and spend some time have a read through
 
 I took lots of notes here and there during the process of studying transformers, think now it's a very good time to share some of my findings. In this (or probably a series of?) blogpost(s?), I am going to collate my past notes on text-specific transformer models piece by piece in a reader-friendly manner. I hope these notes can help others alongside their studying, or being an interesting nice little piece of articles to read through.<br>
 
-In this particular post, I would like to do a very brief overview of the transformer model architecture, specifically on the attention mechanism. I won't go metion too much math and there won't be any mathenathical formulas. However, I would assume readers of this silly little post already have some okay-ish background of math/ datascience, and know some very basics of neural network as well as text processing (i.e., matrix computations embeddings, tokens, model fitting etc.). <br>
+In this particular post, I would like to do a very brief overview of the transformer model architecture, specifically on the attention mechanism. I won't go metion too much math and there won't be any mathenathical formulas. However, I would assume readers of this silly little post already have some okay-ish background of math/ datascience. (i.e., matrix computations embeddings, tokens, model fitting etc.). <br>
 
-## Neural Network Models
-In order to make things easier to understand, I would wish to start with an inaccuate premise: we can view neural network models as functions that takes some sort of matrix as inputs, do some sort of matrix computations, and output another matrix as the final result. What makes one neural network different from others is how the computation is carried out. It's like \(y=a \times x^2\) is a different function from \(y=a \times sin(x)\), only that in the case of neural network, both x and y are matrics, and the math is much complicated. When it comes to model training, we are essentially trying to find values gives best fit to the data. There's an important assumption here: just because model fits the data well does not mean the model describes mechanisms behind the data. For example, we <i>definitely</i> can fit \y=a \times sin(x) + b\) to a normal distribution data (like distribution of customer spendings in McDonald's), and it's prob going to be a pretty good fit, but this does not mean the sine function has anything to do with explaining the normal distribution. A good model does not always need to be description, a good model just needs to be useful for its purpose.<br>
+I'll very quickly go through some very basics on neural network model, just enough to cover what needed for this post, accompied by demo of transformer model as a proof of concept. Then, I'll do a quick sketch on the general architecture of transformers, and a overview of the attention mechasm.<br>
+
+## A good model only needs to be useful
+In order to make things easier to understand, I would wish to start with an inaccuate premise: we can view neural network models as functions that takes some sort of matrix as inputs, do some sort of matrix computations, and output another matrix as the final result. What makes one neural network different from others is how the computation is carried out. It's like \(y=a \times x^2\) is a different function from \(y=a \times sin(x)\), only that in the case of neural network, both x and y are matrics, and the math is much complicated. When it comes to model training, we are essentially trying to find values gives best fit to the data.<br>
+
+There's an important assumption here: just because model fits the data well does not mean the model describes mechanisms behind the data. For example, we <i>definitely</i> can fit \(y=a \times sin(x) + b\) to a normal distribution data (like distribution of customer spendings in McDonald's), and it's prob going to be a pretty good fit, but this does not mean the sine function has anything to do with explaining the normal distribution. A good model does not always need to be description, a good model just needs to be useful for its purpose.<br>
 
 Transformers are preciesly these kinds of models: they are, surprisingly good at fitting into all sorts of data whilst the math behind the model probably doesn't have much to do with the mechanisms behind. We don't know how transformers works so well for text-based tasks. At least not yet. Originally, transformer was designed as an add-on to the text-processing neural network models in order to tackle with some tricky problems (these problems are not the main forcus of the current blogpost so I'm skipping them, but [here's a good article if you were interested](https://towardsdatascience.com/beautifully-illustrated-nlp-models-from-rnn-to-transformer-80d69faf2109/)). We just happened to discover that transformers alone is good enough to solve these problems, we just need to make the transformers much bigger. So that's where the Aİ bloom started: GPT2 solved issues in GPT1 by simply being 10 times bigger; the most-recently open-sourced [pretrained GPT-Oss](https://huggingface.co/mistralai/Mixtral-8x7B-v0.1), is 200 times bigger than [the previous openpsourced model, GPT2](https://huggingface.co/openai-community/gpt2) <i>(note: GPT-OSS is structurlly different from the original GPT2 but the fundamental ideas are the same.)</i>. There are even speculations suggesting transformer neural network models can be seen as some sort of universal function approximator. That is, it's capacable of 'approximate' other formulas/ functions with certain degree of accuracy, providing the model itself is big enough (['universal approximation theorem'](https://en.wikipedia.org/wiki/Universal_approximation_theorem)). <br>
 
-One thing that's very suprising is that, transformers are able to produce pretty impressive results, even if the model wasn't trained for the specific tasks. You can try this out yourself. I'll use Flan-T5 as a demo here. Flan-T5 is a variation of T5 model that fine-tuned on instruction-specific tasks. That is, we can insert some instructions before our prompt and the model shall return different results based on different instructions.
-Here's path to the model:<br>
+## Try it out! Its uncanny (and magical)
+It is preciesly the reason why it's very suprising is that, transformers are able to produce pretty impressive results for tasks model that are not specifically trained for. You can try this out yourself. I'll use Flan-T5 as a demo here. Flan-T5 is a variation of T5 model that fine-tuned on instruction-specific tasks. That is, we can insert some instructions before our prompt and the model shall return different results based on different instructions.
+Here's path to the model if you wanted to learn more:<br>
 {{< huggingface model="google/flan-t5-base">}}
 (this is python by the way)<br>
 
@@ -40,7 +47,7 @@ pprint.pp(pipe.model.config.task_specific_params)
 ```
 
 Output:
-```json
+```python
 {'summarization': {'early_stopping': True,
                    'length_penalty': 2.0,
                    'max_length': 200,
@@ -72,20 +79,171 @@ Althogh the model was not trained on Spanish translation tasks, it still produce
 ```json
 [{'generated_text': 'Me encanta el pescado!'}]
 ```
-
+<figure>
+<img src="LLM-BELL-CURVE.jpg" alt="drawing" width="450"/>
+<figcaption>'LLM is magic'</figcaption>
+</figure>
 There are lot of speculations on why model is able to perform such tasks. For exmaple, some researchers do suggest models that are big enough might [capture meanings behind words as well as language-specific syntax features](https://aclanthology.org/W19-4828/), and thus are able to convert one language to another. You can view how big the model in the demo is:
 
-```
+```python
 pprint.pp(f"Number of parameters: {pipe.model.num_parameters():,}")
 ```
 Output:
-```
+```python
 'Number of parameters: 247,577,856'
 ```
 
+## The Transformer Architecture
+We'll now take a look inside the transformer models and see what kind of math calculations is hapenning. `pytorch`, the python package that the T5 model in this demo is based off, provies very good tool for visulising model structures Using models mentioned from the previous section, if you want to look at what the model architecture, you can do so by running:
+```python
+pprint.pp(pipe.model)
+```
+...which in term will give you this monstrous output:
 
+```rust
+T5ForConditionalGeneration(
+  (shared): Embedding(32128, 768)
+  (encoder): T5Stack(
+    (embed_tokens): Embedding(32128, 768)
+    (block): ModuleList(
+      (0): T5Block(
+        (layer): ModuleList(
+          (0): T5LayerSelfAttention(
+            (SelfAttention): T5Attention(
+              (q): Linear(in_features=768, out_features=768, bias=False)
+              (k): Linear(in_features=768, out_features=768, bias=False)
+              (v): Linear(in_features=768, out_features=768, bias=False)
+              (o): Linear(in_features=768, out_features=768, bias=False)
+              (relative_attention_bias): Embedding(32, 12)
+            )
+            (layer_norm): T5LayerNorm()
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+          (1): T5LayerFF(
+            (DenseReluDense): T5DenseGatedActDense(
+              (wi_0): Linear(in_features=768, out_features=2048, bias=False)
+              (wi_1): Linear(in_features=768, out_features=2048, bias=False)
+              (wo): Linear(in_features=2048, out_features=768, bias=False)
+              (dropout): Dropout(p=0.1, inplace=False)
+              (act): NewGELUActivation()
+            )
+            (layer_norm): T5LayerNorm()
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+      (1-11): 11 x T5Block(
+        (layer): ModuleList(
+          (0): T5LayerSelfAttention(
+            (SelfAttention): T5Attention(
+              (q): Linear(in_features=768, out_features=768, bias=False)
+              (k): Linear(in_features=768, out_features=768, bias=False)
+              (v): Linear(in_features=768, out_features=768, bias=False)
+              (o): Linear(in_features=768, out_features=768, bias=False)
+            )
+            (layer_norm): T5LayerNorm()
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+          (1): T5LayerFF(
+            (DenseReluDense): T5DenseGatedActDense(
+              (wi_0): Linear(in_features=768, out_features=2048, bias=False)
+              (wi_1): Linear(in_features=768, out_features=2048, bias=False)
+              (wo): Linear(in_features=2048, out_features=768, bias=False)
+              (dropout): Dropout(p=0.1, inplace=False)
+              (act): NewGELUActivation()
+            )
+            (layer_norm): T5LayerNorm()
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+    )
+    (final_layer_norm): T5LayerNorm()
+    (dropout): Dropout(p=0.1, inplace=False)
+  )
+  (decoder): T5Stack(
+    (embed_tokens): Embedding(32128, 768)
+    (block): ModuleList(
+      (0): T5Block(
+        (layer): ModuleList(
+          (0): T5LayerSelfAttention(
+            (SelfAttention): T5Attention(
+              (q): Linear(in_features=768, out_features=768, bias=False)
+              (k): Linear(in_features=768, out_features=768, bias=False)
+              (v): Linear(in_features=768, out_features=768, bias=False)
+              (o): Linear(in_features=768, out_features=768, bias=False)
+              (relative_attention_bias): Embedding(32, 12)
+            )
+            (layer_norm): T5LayerNorm()
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+          (1): T5LayerCrossAttention(
+            (EncDecAttention): T5Attention(
+              (q): Linear(in_features=768, out_features=768, bias=False)
+              (k): Linear(in_features=768, out_features=768, bias=False)
+              (v): Linear(in_features=768, out_features=768, bias=False)
+              (o): Linear(in_features=768, out_features=768, bias=False)
+            )
+            (layer_norm): T5LayerNorm()
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+          (2): T5LayerFF(
+            (DenseReluDense): T5DenseGatedActDense(
+              (wi_0): Linear(in_features=768, out_features=2048, bias=False)
+              (wi_1): Linear(in_features=768, out_features=2048, bias=False)
+              (wo): Linear(in_features=2048, out_features=768, bias=False)
+              (dropout): Dropout(p=0.1, inplace=False)
+              (act): NewGELUActivation()
+            )
+            (layer_norm): T5LayerNorm()
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+      (1-11): 11 x T5Block(
+        (layer): ModuleList(
+          (0): T5LayerSelfAttention(
+            (SelfAttention): T5Attention(
+              (q): Linear(in_features=768, out_features=768, bias=False)
+              (k): Linear(in_features=768, out_features=768, bias=False)
+              (v): Linear(in_features=768, out_features=768, bias=False)
+              (o): Linear(in_features=768, out_features=768, bias=False)
+            )
+            (layer_norm): T5LayerNorm()
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+          (1): T5LayerCrossAttention(
+            (EncDecAttention): T5Attention(
+              (q): Linear(in_features=768, out_features=768, bias=False)
+              (k): Linear(in_features=768, out_features=768, bias=False)
+              (v): Linear(in_features=768, out_features=768, bias=False)
+              (o): Linear(in_features=768, out_features=768, bias=False)
+            )
+            (layer_norm): T5LayerNorm()
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+          (2): T5LayerFF(
+            (DenseReluDense): T5DenseGatedActDense(
+              (wi_0): Linear(in_features=768, out_features=2048, bias=False)
+              (wi_1): Linear(in_features=768, out_features=2048, bias=False)
+              (wo): Linear(in_features=2048, out_features=768, bias=False)
+              (dropout): Dropout(p=0.1, inplace=False)
+              (act): NewGELUActivation()
+            )
+            (layer_norm): T5LayerNorm()
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+    )
+    (final_layer_norm): T5LayerNorm()
+    (dropout): Dropout(p=0.1, inplace=False)
+  )
+  (lm_head): Linear(in_features=768, out_features=32128, bias=False)
+)
+```
+T5 model belongs to a sub-category of transformers called 'encoder-decoder'. That is, it's a combination of an encoder followed by a decoder. This post is a general introductions of the basics, and I'll talk about encoder/ decoders in more detail in more detail about this in the future (if time/ etc. allowed).
 
-## Architecture
 The general structure of a transformer model lookes like this:<br>
 1. <bullet>The input gets converted into vectors or matrics. This conversion process can vary based on different types of inputs. It can simply be some sort of look-up tables (text embedding), some matrix transformations of the raw inputs (convolution) etc.</bullet>
 2. <bullet>The raw output from step (1) feeds into the multiple different attention layers. Mathematically, each attention layer is doing very much the same mathematical operation, with each layer having its own sets of parameters. Each layer takes a matrix as an input, and outputs another matrix to pass onto the next layer. This process is repeated multiple times.<bullet>
@@ -135,7 +293,7 @@ What really makes transformers unique (and what's really confusing) is what's ha
 ### Attention head
 You can think each of the attention head as a mini neural network: it takes some inputs and spits out some outputs. A typical attention head works like this:
 1. <bullet>The input matrix gets converted into multiple matices through matrix multiplication. Most current transformers converts input matrix into three smaller matrices.</bullet>
-2. <bullet>Two of the matrix from step (1) gets combined together using some matrix operation.</bullet>
+2. <bullet>Two of the matrix from step (1) gets combined together using some matrix operation, usually dot products.</bullet>
 3. <bullet>The third matrix from step (1) combines with output from step (2), using some other matrix operation.</bullet>
 <body>
     <pre style="font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><code style="font-family:inherit">╭──────────────────────────────────────────────╮
@@ -162,12 +320,11 @@ You can think each of the attention head as a mini neural network: it takes some
 ╰──────────────────────────────────────────────╯</code></pre>
 </body>
 
-### So where are the parameters?
+## So it's just a huge stacks of matirx calculations? 
+In sense yes, it is. The three matrics in the attention head are called 'key'. 'query' and 'value', the idea behind these names are: 'user queries something, program looks for keys (i.e., keywords) to match with query, and value is whatever gets matched with'. Honstly I found this explaination very confusing, since 
+
+<!-- ### So where are the parameters?
 So what are the parameters to be learned in this monstruous model? Whenever the model does matrix calculations, the model is really just applying different functions to the input. These functions contain their own sets of operations and rules about how the inpiut should be transformed. These are the paramers to be learned during the training. Yes, **almost everything can be set as learned parameter**. That's one of the resons why AI models are so bloody huge.<br>
 
 ### Why?
-You might want to ask, how do we come up with this design? Are they specifically designed to answer some sort of linguistic research questions? Why this particular design work so well? Transformer was designed to tackle with some tricky problems faced by previous neural network designs (the history of transformer architecture is not the main focus for now, but [here's a good article if you were interested](https://towardsdatascience.com/beautifully-illustrated-nlp-models-from-rnn-to-transformer-80d69faf2109/)), however, none of these problems are related to linguistics/ grammar. We don't know how it works nor why it works. At least not yet. For text-based models, some researchers do suggest LLM neural network [do capture informations about language features](https://aclanthology.org/W19-4828/), however, these discoveries are reported *after* the model was published and prob not the main motivation behind this design. It is a bit facinating that this particular design just *works*.<br>
-<figure>
-<img src="LLM-BELL-CURVE.jpg" alt="drawing" width="450"/>
-<figcaption>'LLM is magic'</figcaption>
-</figure>
+You might want to ask, how do we come up with this design? Are they specifically designed to answer some sort of linguistic research questions? Why this particular design work so well? Transformer was designed to tackle with some tricky problems faced by previous neural network designs (the history of transformer architecture is not the main focus for now, but [here's a good article if you were interested](https://towardsdatascience.com/beautifully-illustrated-nlp-models-from-rnn-to-transformer-80d69faf2109/)), however, none of these problems are related to linguistics/ grammar. We don't know how it works nor why it works. At least not yet. For text-based models, some researchers do suggest LLM neural network [do capture informations about language features](https://aclanthology.org/W19-4828/), however, these discoveries are reported *after* the model was published and prob not the main motivation behind this design. It is a bit facinating that this particular design just *works*.<br> -->
