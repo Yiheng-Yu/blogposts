@@ -11,12 +11,12 @@
     
     <item>
       <title>ELI5 Transformers (part 1?): Attention Mechanisms</title>
-      <link>http://localhost:1313/posts/1761094597752-wtf-does-decoder-do-hows-that-different-from-the-encoder-/</link>
+      <link>http://localhost:1313/posts/transformers-pt-1/</link>
       <pubDate>Sun, 26 Oct 2025 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/posts/1761094597752-wtf-does-decoder-do-hows-that-different-from-the-encoder-/</guid>
+      <guid>http://localhost:1313/posts/transformers-pt-1/</guid>
       <description></description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/posts/1761094597752-wtf-does-decoder-do-hows-that-different-from-the-encoder-/featured.jpg" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/posts/transformers-pt-1/featured.jpg" />
     </item>
     
   </channel>

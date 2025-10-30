@@ -28,7 +28,7 @@
   
   
   
-  <link rel="canonical" href="http://localhost:1313/posts/1761094597752-wtf-does-decoder-do-hows-that-different-from-the-encoder-/">
+  <link rel="canonical" href="http://localhost:1313/posts/transformers-pt-1/">
   
 
   
@@ -38,7 +38,7 @@
   
 
   
-  <meta property="og:url" content="http://localhost:1313/posts/1761094597752-wtf-does-decoder-do-hows-that-different-from-the-encoder-/">
+  <meta property="og:url" content="http://localhost:1313/posts/transformers-pt-1/">
   <meta property="og:site_name" content="Hagfish">
   <meta property="og:title" content="ELI5 Transformers (part 1?): Attention Mechanisms">
   <meta property="og:description" content="a description">
@@ -49,11 +49,11 @@
     <meta property="article:modified_time" content="2025-10-26T00:00:00+00:00">
     <meta property="article:tag" content="Transformers">
     <meta property="article:tag" content="Huggingface">
-    <meta property="og:image" content="http://localhost:1313/posts/1761094597752-wtf-does-decoder-do-hows-that-different-from-the-encoder-/featured.jpg">
+    <meta property="og:image" content="http://localhost:1313/posts/transformers-pt-1/featured.jpg">
 
   
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/posts/1761094597752-wtf-does-decoder-do-hows-that-different-from-the-encoder-/featured.jpg">
+  <meta name="twitter:image" content="http://localhost:1313/posts/transformers-pt-1/featured.jpg">
   <meta name="twitter:title" content="ELI5 Transformers (part 1?): Attention Mechanisms">
   <meta name="twitter:description" content="a description">
 
@@ -342,7 +342,7 @@
     "description": "a description",
     
     "inLanguage": "en",
-    "url" : "http:\/\/localhost:1313\/posts\/1761094597752-wtf-does-decoder-do-hows-that-different-from-the-encoder-\/",
+    "url" : "http:\/\/localhost:1313\/posts\/transformers-pt-1\/",
     "author" : {
       "@type": "Person",
       "name": "Yiheng Yu"
@@ -356,7 +356,7 @@
     "keywords": ["transformers","huggingface"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "2556"
+    "wordCount": "2835"
   }]
   </script>
 
@@ -700,7 +700,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2025-10-26T00:00:00&#43;00:00">26 October 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2556 words</span>
+      <time datetime="2025-10-26T00:00:00&#43;00:00">26 October 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2835 words</span>
     
 
     
@@ -769,7 +769,7 @@
         <li><a href="#why-are-the-models-so-big">Why are the models so big?</a></li>
       </ul>
     </li>
-    <li><a href="#so-its-just-a-huge-stacks-of-matirx-calculations">So it&rsquo;s just a huge stacks of matirx calculations?</a></li>
+    <li><a href="#some-resources">Some Resources</a></li>
   </ul>
 </nav>
   </div>
@@ -792,7 +792,7 @@
         <li><a href="#why-are-the-models-so-big">Why are the models so big?</a></li>
       </ul>
     </li>
-    <li><a href="#so-its-just-a-huge-stacks-of-matirx-calculations">So it&rsquo;s just a huge stacks of matirx calculations?</a></li>
+    <li><a href="#some-resources">Some Resources</a></li>
   </ul>
 </nav>
   </div>
@@ -810,8 +810,7 @@
         
 
         <div class="article-content max-w-prose mb-20">
-          <p>{{ end }}
-
+          <p>
 
 As someone without much backrounds in neither physics nor computer science, I find lots of available introductions on transformers very confusing, despite current Aİ bloom (the name &ldquo;GPT&rdquo; is short for &lsquo;Generative Pre-training <i>Transformer</i>&rsquo;!). Most of the articles on transformers focuses on attention mechanisms, using either <a
   href="https://peterbloem.nl/blog/transformers"
@@ -822,7 +821,7 @@ As someone without much backrounds in neither physics nor computer science, I fi
   >the classic BERT</a> as examples. They would spend lot of time talking about embeddings &amp; attetions on the encoding side, and skipped most the decoding by saying &lsquo;well you just do the same thing again and there you have it!&rsquo;. Well that&rsquo;s not very helpful isn&rsquo;t it. Don&rsquo;t get me wrong, there are a lot of very good learning materials out there, for example the amazing <a
   href="https://poloclub.github.io/transformer-explainer"
     target="_blank"
-  >interactive transofmer explainer</a>. However, I always find these heavy tutorials not very suitable for my very short attention span or the autism tendency of getting lost in details. The current naming conventions aren&rsquo;t helpful ether: the &lsquo;attention heads&rsquo;, the &lsquo;key/query/value&rsquo;, and all the &lsquo;GEGLU&rsquo;s. They feel like fancy terms to trick shareholders rather than actually describing the model itself. Makes you miss the good old days of &lsquo;RNNs&rsquo; and convolutional networks.<br></p>
+  >interactive transofmer explainer</a>. However, I always find these heavy tutorials not very suitable for my very short attention span or the autism tendency of getting lost in details.<br></p>
 <p>Finally, I&rsquo;ve decided to bite the bullet and spend some time have a read through the HuggingFace&rsquo;s source code for google&rsquo;s T5 Model, <a
   href="https://github.com/huggingface/transformers/blob/main/src/transformers/models/t5/modeling_t5.py"
     target="_blank"
@@ -834,8 +833,8 @@ As someone without much backrounds in neither physics nor computer science, I fi
     target="_blank"
   >inside dataset iterator</a>&rsquo;. <br></p>
 <p>I took lots of notes here and there during the process of studying transformers, think now it&rsquo;s a very good time to share some of my findings. In this (or probably a series of?) blogpost(s?), I am going to collate my past notes on text-specific transformer models piece by piece in a reader-friendly manner. I hope these notes can help others alongside their studying, or being an interesting nice little piece of articles to read through.<br></p>
-<p>In this particular post, I would like to do a very brief overview of the transformer model architecture, specifically on the attention mechanism. I won&rsquo;t go metion too much math and there won&rsquo;t be any mathenathical formulas. However, I would assume readers of this silly little post already have some okay-ish background of math/ datascience. (i.e., matrix computations embeddings, tokens, model fitting etc.). <br></p>
-<p>I&rsquo;ll very quickly go through some very basics on neural network model, just enough to cover what needed for this post, accompied by demo of transformer model as a proof of concept. Then, I&rsquo;ll do a quick sketch on the general architecture of transformers, and a overview of the attention mechasm.<br></p>
+<p>In this particular post, I would like to do a very brief overview of the transformer model architecture, specifically on the attention mechanism. I won&rsquo;t go metion too much math and there won&rsquo;t be any mathenathical formulas. However, I would assume readers of this silly little post already have some okay-ish background of math/ datascience. (i.e., matrix computations embeddings, tokens, model fitting etc.). I am not going to list out all the implemention details for transformers, since there are a lot of very good materials out there and they are doing fantastic jobs. Instead, in this (maybe series of?) post, İ would like to draw out a general framework on transformers to help one understand the detailed math behind.<br></p>
+<p>In this particular blogpost, I&rsquo;ll very quickly go through some very basics on neural network model, just enough to cover what needed for this post, accompied by demo of transformer model as a proof of concept. In this section, there will be some codes that you can copy and paste into an interactive python session to fiddle around for a bit. And lastly, I&rsquo;ll do a quick sketch on the general architecture of transformers, and a overview of the attention mechasm.<br></p>
 
 <h2 class="relative group">A good model only needs to be useful
     <div id="a-good-model-only-needs-to-be-useful" class="anchor"></div>
@@ -874,7 +873,7 @@ As someone without much backrounds in neither physics nor computer science, I fi
 <p>It is preciesly the reason why it&rsquo;s very suprising is that, transformers are able to produce pretty impressive results for tasks model that are not specifically trained for. You can try this out yourself. I&rsquo;ll use Flan-T5 as a demo here. Flan-T5 is a variation of T5 model that fine-tuned on instruction-specific tasks. That is, we can insert some instructions before our prompt and the model shall return different results based on different instructions.
 Here&rsquo;s path to the model if you wanted to learn more:<br>
 <div class="huggingface-card-wrapper">
-    <a id="huggingface-b5f25da5e715a26e2d734619474d0823" target="_blank" href="https://huggingface.co/google/flan-t5-base" class="cursor-pointer">
+    <a id="huggingface-4578251978aa78accb23ab9545af04b5" target="_blank" href="https://huggingface.co/google/flan-t5-base" class="cursor-pointer">
       <div
         class="w-full md:w-auto p-0 m-0 border border-neutral-200 dark:border-neutral-700 border rounded-md shadow-2xl">
         <div class="w-full md:w-auto pt-3 p-5">
@@ -889,7 +888,7 @@ Here&rsquo;s path to the model if you wanted to learn more:<br>
               </span>
             </span>
             <div
-              id="huggingface-b5f25da5e715a26e2d734619474d0823-id"
+              id="huggingface-4578251978aa78accb23ab9545af04b5-id"
               class="m-0 font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral">
               google/flan-t5-base
             </div>
@@ -910,7 +909,7 @@ Here&rsquo;s path to the model if you wanted to learn more:<br>
               <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 <path fill="currentColor" d="M244 84L255.1 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 0 232.4 0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84C243.1 84 244 84.01 244 84L244 84zM255.1 163.9L210.1 117.1C188.4 96.28 157.6 86.4 127.3 91.44C81.55 99.07 48 138.7 48 185.1V190.9C48 219.1 59.71 246.1 80.34 265.3L256 429.3L431.7 265.3C452.3 246.1 464 219.1 464 190.9V185.1C464 138.7 430.4 99.07 384.7 91.44C354.4 86.4 323.6 96.28 301.9 117.1L255.1 163.9z"/></svg></span>
             </span>
-            <div id="huggingface-b5f25da5e715a26e2d734619474d0823-likes" class="m-0 mr-5 text-md text-neutral-800 dark:text-neutral">
+            <div id="huggingface-4578251978aa78accb23ab9545af04b5-likes" class="m-0 mr-5 text-md text-neutral-800 dark:text-neutral">
               1013
             </div>
 
@@ -918,7 +917,7 @@ Here&rsquo;s path to the model if you wanted to learn more:<br>
               <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 <path fill="currentColor" d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zM432 456c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
             </span>
-            <div id="huggingface-b5f25da5e715a26e2d734619474d0823-downloads" class="m-0 mr-5 text-md text-neutral-800 dark:text-neutral">
+            <div id="huggingface-4578251978aa78accb23ab9545af04b5-downloads" class="m-0 mr-5 text-md text-neutral-800 dark:text-neutral">
               1.181778e&#43;06
             </div>
           </div>
@@ -932,11 +931,12 @@ Here&rsquo;s path to the model if you wanted to learn more:<br>
         src="/js/fetch-repo.min.dc5533c50cefd50405344b235937142271f26229fe39cbee27fd4960e8bb897a0beebfad77a1091ca91cd0d1fb14e70fc37cc114dd9674fb2c32e0ab512ec8a4.js"
         integrity="sha512-3FUzxQzv1QQFNEsjWTcUInHyYin&#43;OcvuJ/1JYOi7iXoL7r&#43;td6EJHKkc0NH7FOcPw3zBFN2WdPssMuCrUS7IpA=="
         data-repo-url="https://huggingface.co/api/models/google/flan-t5-base"
-        data-repo-id="huggingface-b5f25da5e715a26e2d734619474d0823"></script>
+        data-repo-id="huggingface-4578251978aa78accb23ab9545af04b5"></script>
     </a>
   </div>
 
 (this is python by the way)<br></p>
+<p><i style="font-size:90%;">(note on Python installation: most of the mainstream python installations comes with a very good interactive shell that works like matlab/R-studio console. Modern Macbook and most of the mainstream Linux distributions has python pre-install as part of the operaion system. If you were using mac/linux, you can start an interactive python session by: open terminal -&gt; type python -&gt; hit enter. If you were using Windows and don&rsquo;t want to go through the faff of setting python up, just go to Microsoft Store, search &lsquo;Python&rsquo;, and download the most recent release from there. Then, you can launch python by: open terminal -&gt; type python -&gt; hit enter.)</i></p>
 <p>Before starting, you might want to install <code>transformers</code> by running <code>pip install transformers</code> in case you haven&rsquo;t done so. It&rsquo;s a library collecting huge tone of open-sourced transformer models that allows you explore around. very neat.</p>
 <p>And here&rsquo;s how you can try it out:</p>
 <div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">1</span><span><span style="color:#94e2d5">from</span> <span style="color:#fab387">transformers</span> <span style="color:#94e2d5">import</span> pipeline
@@ -1234,26 +1234,37 @@ There are lot of speculations on why model is able to perform such tasks. For ex
     </span>
     
 </h3>
-<p>I wanted to point out the (maybe) obvious thing here: almost all operations mentioned contain learnable parameters. Inside individual attention heads, the three matrics convreted by inputs are typically converted by multiplying (&lsquo;dot product&rsquo;) inputs with three <strong>separate</strong> matrices. These matrics are part of the learnable parameters of the attention head. When we combine matrices, the combination operation also has <a
+<p>I wanted to point out the (maybe) obvious thing here: almost all operations mentioned contain learnable parameters. Inside individual attention heads, the three matrics convreted by inputs are typically converted by multiplying (&lsquo;dot product&rsquo;) inputs with three <strong>separate</strong> matrices. These matrics are part of the learnable parameters for the attention head. When we combine matrices, the combination operation also has <a
   href="https://docs.pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html"
     target="_blank"
-  >their own learnable parameters</a>. Furthermore, when we combining outputs from each &lsquo;attention heads&rsquo;, this combining opearation also has its own set of trainable parameters.</p>
+  >their own learnable parameters</a>. Furthermore, when we combining outputs from each &lsquo;attention heads&rsquo;, this combining opearation also has its own set of trainable parameters, so on and so on&hellip;Almost every stage of the matrix computations are parameterised, resulting the unbelievably <strong>massive</strong> Aİ models as of today.</p>
+<p><strong>So it&rsquo;s just a huge stacks of matirx calculations?</strong><br>
+In sense yes, it is. The three matrics in the attention head are commonly named as &lsquo;key&rsquo;. &lsquo;query&rsquo; and &lsquo;value&rsquo;, the idea behind these names are: &lsquo;user queries something, program looks for keys (i.e., keywords) to match with query, and value is whatever gets matched with&rsquo;. Honstly I found this explaination very confusing. We gave names to these matrics, we don&rsquo;t know much about their behaviour.</p>
 
-<h2 class="relative group">So it&rsquo;s just a huge stacks of matirx calculations?
-    <div id="so-its-just-a-huge-stacks-of-matirx-calculations" class="anchor"></div>
+<h2 class="relative group">Some Resources
+    <div id="some-resources" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#so-its-just-a-huge-stacks-of-matirx-calculations" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#some-resources" aria-label="Anchor">#</a>
     </span>
     
 </h2>
-<p>In sense yes, it is. The three matrics in the attention head are called &lsquo;key&rsquo;. &lsquo;query&rsquo; and &lsquo;value&rsquo;, the idea behind these names are: &lsquo;user queries something, program looks for keys (i.e., keywords) to match with query, and value is whatever gets matched with&rsquo;. Honstly I found this explaination very confusing.</p>
-<!-- ### So where are the parameters?
-So what are the parameters to be learned in this monstruous model? Whenever the model does matrix calculations, the model is really just applying different functions to the input. These functions contain their own sets of operations and rules about how the inpiut should be transformed. These are the paramers to be learned during the training. Yes, **almost everything can be set as learned parameter**. That's one of the resons why AI models are so bloody huge.<br>
-
-### Why?
-You might want to ask, how do we come up with this design? Are they specifically designed to answer some sort of linguistic research questions? Why this particular design work so well? Transformer was designed to tackle with some tricky problems faced by previous neural network designs (the history of transformer architecture is not the main focus for now, but [here's a good article if you were interested](https://towardsdatascience.com/beautifully-illustrated-nlp-models-from-rnn-to-transformer-80d69faf2109/)), however, none of these problems are related to linguistics/ grammar. We don't know how it works nor why it works. At least not yet. For text-based models, some researchers do suggest LLM neural network [do capture informations about language features](https://aclanthology.org/W19-4828/), however, these discoveries are reported *after* the model was published and prob not the main motivation behind this design. It is a bit facinating that this particular design just *works*.<br> -->
+<p>I hope whoever come accross this post would find it useful. Here are some extra reading materials that İ found particularly useful:<br></p>
+<ol>
+<li><a
+  href="https://docs.pytorch.org/tutorials/intermediate/char_rnn_generation_tutorial.html"
+    target="_blank"
+  >Pytorch&rsquo;s step-byp-step guide on creating a generative LLM is prob one of the best out there that teaches you all the fundenmentals.</a></li>
+<li><a
+  href="https://github.com/jessevig/bertviz"
+    target="_blank"
+  >BertViz, a very good visualisation tool for looking at attention heads layer by layer. You can run it interactively in a jupyter notebook.</a></li>
+<li><a
+  href="https://huggingface.co/learn/llm-course/en/chapter0/1"
+    target="_blank"
+  >Huggingface&rsquo;s LLM cources. Although they tends to focus on the programming &amp; practical applications, I found many of their conceptual guides very good for a beginner.</a></li>
+</ol>
 
           
           
@@ -1281,8 +1292,8 @@ You might want to ask, how do we come up with this design? Are they specifically
           type="text/javascript"
           src="/js/page.min.54b6f4371722649edbe871e431d8670d670878c22be8f36e229fe53cc9b786fe25a834def5e6de621f7a3e37b72bc8cd73839aa5ed907ed6cbd45cd3e1b0fa20.js"
           integrity="sha512-VLb0NxciZJ7b6HHkMdhnDWcIeMIr6PNuIp/lPMm3hv4lqDTe9ebeYh96Pje3K8jNc4Oape2QftbL1FzT4bD6IA=="
-          data-oid="views_posts/1761094597752-WTF-Does-Decoder-Do?-How&#39;s-that-different-from-the-Encoder?-/index.md"
-          data-oid-likes="likes_posts/1761094597752-WTF-Does-Decoder-Do?-How&#39;s-that-different-from-the-Encoder?-/index.md"></script>
+          data-oid="views_posts/transformers-pt-1/index.md"
+          data-oid-likes="likes_posts/transformers-pt-1/index.md"></script>
       
     </section>
 
