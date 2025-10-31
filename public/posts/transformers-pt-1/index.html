@@ -15,8 +15,8 @@
 
   
   
-    <title>ELI5 Transformers (part 1?): Attention Mechanisms &middot; Hagfish</title>
-    <meta name="title" content="ELI5 Transformers (part 1?): Attention Mechanisms &middot; Hagfish">
+    <title>ELI5 Transformers (part 1?): Attention Mechanisms &middot; Myxiniformes Moment</title>
+    <meta name="title" content="ELI5 Transformers (part 1?): Attention Mechanisms &middot; Myxiniformes Moment">
   
 
   
@@ -33,20 +33,34 @@
 
   
   
-    <meta name="author" content="Yiheng Yu">
+    <meta name="author" content="@Yiheng Yu">
   
+  
+    
+      
+        
+          <link href="https://github.com/Yiheng-Yu" rel="me">
+        
+      
+    
+      
+        
+          <link href="https://www.linkedin.com/in/yiheng-yu-9402121b6/" rel="me">
+        
+      
+    
   
 
   
   <meta property="og:url" content="http://localhost:1313/posts/transformers-pt-1/">
-  <meta property="og:site_name" content="Hagfish">
+  <meta property="og:site_name" content="Myxiniformes Moment">
   <meta property="og:title" content="ELI5 Transformers (part 1?): Attention Mechanisms">
   <meta property="og:description" content="a description">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2025-10-26T00:00:00+00:00">
-    <meta property="article:modified_time" content="2025-10-26T00:00:00+00:00">
+    <meta property="article:published_time" content="2025-10-31T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-10-31T00:00:00+00:00">
     <meta property="article:tag" content="Transformers">
     <meta property="article:tag" content="Huggingface">
     <meta property="og:image" content="http://localhost:1313/posts/transformers-pt-1/featured.jpg">
@@ -110,6 +124,12 @@
   
   
   
+    
+    <script
+      type="text/javascript"
+      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
+      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
+  
   
     
     <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
@@ -124,6 +144,8 @@
     
   
   
+    
+  
   
   
   
@@ -134,8 +156,8 @@
       defer
       type="text/javascript"
       id="script-bundle"
-      src="/js/main.bundle.min.20f1724263eaa78cb7d46f433a1a3fa138fb7136df269a11de139bfa3898cbe1ba1620471231e7ee31b92df6f3274d7616f01dcc6000c7f29e8473cf77a04761.js"
-      integrity="sha512-IPFyQmPqp4y31G9DOho/oTj7cTbfJpoR3hOb&#43;jiYy&#43;G6FiBHEjHn7jG5LfbzJ012FvAdzGAAx/KehHPPd6BHYQ=="
+      src="/js/main.bundle.min.5966a428de377f47000fa31ae9064cbaf59f7806c6ba8e0b69f3aefa154022ecff1bb88ab9d82eea7a26532465d9c599cdbbb74a87f7dbab888e8195c43c4b16.js"
+      integrity="sha512-WWakKN43f0cAD6Ma6QZMuvWfeAbGuo4LafOu&#43;hVAIuz/G7iKudgu6nomUyRl2cWZzbu3Sof326uIjoGVxDxLFg=="
       data-copy="Copy"
       data-copied="Copied"></script>
   
@@ -345,18 +367,18 @@
     "url" : "http:\/\/localhost:1313\/posts\/transformers-pt-1\/",
     "author" : {
       "@type": "Person",
-      "name": "Yiheng Yu"
+      "name": "@Yiheng Yu"
     },
     "copyrightYear": "2025",
-    "dateCreated": "2025-10-26T00:00:00\u002b00:00",
-    "datePublished": "2025-10-26T00:00:00\u002b00:00",
+    "dateCreated": "2025-10-31T00:00:00\u002b00:00",
+    "datePublished": "2025-10-31T00:00:00\u002b00:00",
     
-    "dateModified": "2025-10-26T00:00:00\u002b00:00",
+    "dateModified": "2025-10-31T00:00:00\u002b00:00",
     
     "keywords": ["transformers","huggingface"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "2835"
+    "wordCount": "2915"
   }]
   </script>
 
@@ -408,7 +430,10 @@
     </div>
     
     
-      
+      <div class="min-h-[148px]"></div>
+<div class="fixed inset-x-0 bg-neutral dark:bg-neutral-800 z-100">
+  <div class="relative m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32">
+    
 
 
 
@@ -431,7 +456,7 @@
     <nav class="flex space-x-3">
       
         <a href="/" class="text-base font-medium">
-          Hagfish
+          Myxiniformes Moment
         </a>
       
     </nav>
@@ -636,6 +661,9 @@
   </script>
 
 
+  </div>
+</div>
+
     
     <div class="relative flex flex-col grow">
       <main id="main-content" class="grow">
@@ -647,6 +675,37 @@
 
     
     <header id="single_header" class="mt-5 max-w-prose">
+      
+        <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="hidden">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/"
+      >Myxiniformes Moment</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/posts/"
+      >posts</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="hidden">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/posts/transformers-pt-1/"
+      >ELI5 Transformers (part 1?): Attention Mechanisms</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
       
       <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
         ELI5 Transformers (part 1?): Attention Mechanisms
@@ -695,12 +754,26 @@
   
 
   
+    
+  
 
 
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2025-10-26T00:00:00&#43;00:00">26 October 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2835 words</span>
+      <time datetime="2025-10-31T00:00:00&#43;00:00">31 October 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2915 words</span><span class="px-2 text-primary-500">&middot;</span><span class="mb-[2px]">
+  <span
+    id="zen-mode-button"
+    class="text-lg hover:text-primary-500"
+    title="Enable zen mode"
+    data-title-i18n-disable="Enable zen mode"
+    data-title-i18n-enable="Disable zen mode">
+    <span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px">
+    <path fill="currentColor" d="M 12.980469 4 C 9.1204688 4 5.9804688 7.14 5.9804688 11 L 6 26 L 9.9804688 26 L 9.9804688 11 C 9.9804688 9.35 11.320469 8 12.980469 8 L 40.019531 8 C 41.679531 8 43.019531 9.35 43.019531 11 L 43.019531 39 C 43.019531 40.65 41.679531 42 40.019531 42 L 29 42 C 29 43.54 28.420938 44.94 27.460938 46 L 40.019531 46 C 43.879531 46 47.019531 42.86 47.019531 39 L 47.019531 11 C 47.019531 7.14 43.879531 4 40.019531 4 L 12.980469 4 z M 7 28 C 4.794 28 3 29.794 3 32 L 3 42 C 3 44.206 4.794 46 7 46 L 23 46 C 25.206 46 27 44.206 27 42 L 27 32 C 27 29.794 25.206 28 23 28 L 7 28 z M 7 32 L 23 32 L 23.001953 42 L 7 42 L 7 32 z"/>
+</svg></span></span>
+  </span>
+</span>
+
     
 
     
@@ -708,8 +781,60 @@
   </div>
 
   
+    <div class="flex flex-row flex-wrap items-center">
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  
 
   
+  
+    <div class="flex flex-row flex-wrap items-center">
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/transformers/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Transformers
+  </span>
+</span>
+
+              </a>
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/huggingface/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Huggingface
+  </span>
+</span>
+
+              </a>
+            
+          
+        
+      
+    </div>
   
 
   
@@ -718,23 +843,6 @@
 
 
       </div>
-      
-        
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
       
     </header>
 
@@ -746,7 +854,7 @@
       
       
         <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
-          <div class="toc ps-5 print:hidden lg:sticky lg:top-10">
+          <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
             
               <details
   open
@@ -769,7 +877,7 @@
         <li><a href="#why-are-the-models-so-big">Why are the models so big?</a></li>
       </ul>
     </li>
-    <li><a href="#some-resources">Some Resources</a></li>
+    <li><a href="#some-other-resources">Some Other Resources</a></li>
   </ul>
 </nav>
   </div>
@@ -792,12 +900,112 @@
         <li><a href="#why-are-the-models-so-big">Why are the models so big?</a></li>
       </ul>
     </li>
-    <li><a href="#some-resources">Some Resources</a></li>
+    <li><a href="#some-other-resources">Some Other Resources</a></li>
   </ul>
 </nav>
   </div>
 </details>
 
+
+<script>
+  (function () {
+    'use strict'
+
+    const SCROLL_OFFSET_RATIO = 0.33
+    const TOC_SELECTOR = '#TableOfContents'
+    const ANCHOR_SELECTOR = '.anchor'
+    const TOC_LINK_SELECTOR = 'a[href^="#"]'
+    const NESTED_LIST_SELECTOR = 'li ul'
+    const ACTIVE_CLASS = 'active'
+    let isJumpingToAnchor = false
+
+    function getActiveAnchorId(anchors, offsetRatio) {
+      const threshold = window.scrollY + window.innerHeight * offsetRatio
+      const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
+      const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      if (isJumpingToAnchor) {
+        for (let i = 0; i < anchors.length; i++) {
+          const anchor = anchors[i]
+          if (!tocIds.has(anchor.id)) continue
+          const top = anchor.getBoundingClientRect().top + window.scrollY
+          if (Math.abs(window.scrollY - top) < 100) {
+            return anchor.id
+          }
+        }
+      }
+
+      for (let i = anchors.length - 1; i >= 0; i--) {
+        const top = anchors[i].getBoundingClientRect().top + window.scrollY
+        if (top <= threshold && tocIds.has(anchors[i].id)) {
+          return anchors[i].id
+        }
+      }
+      return anchors.find(anchor => tocIds.has(anchor.id))?.id || ''
+    }
+
+    function updateTOC({ toc, anchors, links, scrollOffset, collapseInactive }) {
+      const activeId = getActiveAnchorId(anchors, scrollOffset)
+      if (!activeId) return
+
+      links.forEach(link => {
+        const isActive = link.getAttribute('href') === `#${activeId}`
+        link.classList.toggle(ACTIVE_CLASS, isActive)
+
+        if (collapseInactive) {
+          const ul = link.closest('li')?.querySelector('ul')
+          if (ul) ul.style.display = isActive ? '' : 'none'
+        }
+      })
+
+      if (collapseInactive) {
+        const activeLink = toc.querySelector(`a[href="#${CSS.escape(activeId)}"]`)
+        let el = activeLink
+        while (el && el !== toc) {
+          if (el.tagName === 'UL') el.style.display = ''
+          if (el.tagName === 'LI') el.querySelector('ul')?.style.setProperty('display', '')
+          el = el.parentElement
+        }
+      }
+    }
+
+    function initTOC() {
+      const toc = document.querySelector(TOC_SELECTOR)
+      if (!toc) return
+
+      const collapseInactive = false
+      const anchors = [...document.querySelectorAll(ANCHOR_SELECTOR)]
+      const links = [...toc.querySelectorAll(TOC_LINK_SELECTOR)]
+
+      if (collapseInactive) {
+        toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
+      }
+
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          isJumpingToAnchor = true
+        })
+      })
+
+      const config = {
+        toc,
+        anchors,
+        links,
+        scrollOffset: SCROLL_OFFSET_RATIO,
+        collapseInactive
+      }
+
+      window.addEventListener('scroll', () => updateTOC(config), { passive: true })
+      window.addEventListener('hashchange', () => updateTOC(config), { passive: true })
+
+      updateTOC(config)
+    }
+
+    document.readyState === 'loading'
+      ? document.addEventListener('DOMContentLoaded', initTOC)
+      : initTOC()
+  })()
+</script>
 
 
             
@@ -812,7 +1020,7 @@
         <div class="article-content max-w-prose mb-20">
           <p>
 
-As someone without much backrounds in neither physics nor computer science, I find lots of available introductions on transformers very confusing, despite current Aİ bloom (the name &ldquo;GPT&rdquo; is short for &lsquo;Generative Pre-training <i>Transformer</i>&rsquo;!). Most of the articles on transformers focuses on attention mechanisms, using either <a
+As someone without much backrounds in neither physics nor computer science, I find lots of available introductions on transformers very confusing. Transformers is the talk of the street, GPT is short for &lsquo;Generative Pre-training <i>Transformer</i>&rsquo;! However, most of the articles on transformers focuses on attention mechanisms, using either <a
   href="https://peterbloem.nl/blog/transformers"
     target="_blank"
   >the OG transformer</a> or <a
@@ -870,8 +1078,14 @@ As someone without much backrounds in neither physics nor computer science, I fi
     </span>
     
 </h2>
-<p>It is preciesly the reason why it&rsquo;s very suprising is that, transformers are able to produce pretty impressive results for tasks model that are not specifically trained for. You can try this out yourself. I&rsquo;ll use Flan-T5 as a demo here. Flan-T5 is a variation of T5 model that fine-tuned on instruction-specific tasks. That is, we can insert some instructions before our prompt and the model shall return different results based on different instructions.
-Here&rsquo;s path to the model if you wanted to learn more:<br>
+<p>It is preciesly the reason why it&rsquo;s very suprising is that, transformers are able to produce pretty impressive results for tasks model that are not specifically trained for. You can try this out yourself. I&rsquo;ll use Flan-T5 as a demo here. Flan-T5 is a variation of T5 model that fine-tuned on instruction-specific tasks. That is, we can insert some instructions before our prompt and the model shall return different results based on different instructions.<br></p>
+<p>I&rsquo;ll use Python for the demo here because it&rsquo;s convinent. Before starting, you might want to install <code>transformers</code> if you haven&rsquo;t done aleady. It&rsquo;s a library collecting huge tone of open-sourced transformer models that allows you explore around.<br>
+Open terminal, and run this command to install transformers:</p>
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">1</span><span>pip install transformers
+</span></span></code></pre></div><p>The model I am going to use is <a
+  href="https://arxiv.org/pdf/2210.11416"
+    target="_blank"
+  >T5, released by Google a couple of years ago</a> Here&rsquo;s huggingface&rsquo;s link to the model:
 <div class="huggingface-card-wrapper">
     <a id="huggingface-4578251978aa78accb23ab9545af04b5" target="_blank" href="https://huggingface.co/google/flan-t5-base" class="cursor-pointer">
       <div
@@ -934,11 +1148,8 @@ Here&rsquo;s path to the model if you wanted to learn more:<br>
         data-repo-id="huggingface-4578251978aa78accb23ab9545af04b5"></script>
     </a>
   </div>
-
-(this is python by the way)<br></p>
-<p><i style="font-size:90%;">(note on Python installation: most of the mainstream python installations comes with a very good interactive shell that works like matlab/R-studio console. Modern Macbook and most of the mainstream Linux distributions has python pre-install as part of the operaion system. If you were using mac/linux, you can start an interactive python session by: open terminal -&gt; type python -&gt; hit enter. If you were using Windows and don&rsquo;t want to go through the faff of setting python up, just go to Microsoft Store, search &lsquo;Python&rsquo;, and download the most recent release from there. Then, you can launch python by: open terminal -&gt; type python -&gt; hit enter.)</i></p>
-<p>Before starting, you might want to install <code>transformers</code> by running <code>pip install transformers</code> in case you haven&rsquo;t done so. It&rsquo;s a library collecting huge tone of open-sourced transformer models that allows you explore around. very neat.</p>
-<p>And here&rsquo;s how you can try it out:</p>
+</p>
+<p>In python, run these lines to download &amp; initialise the model:</p>
 <div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">1</span><span><span style="color:#94e2d5">from</span> <span style="color:#fab387">transformers</span> <span style="color:#94e2d5">import</span> pipeline
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">2</span><span><span style="color:#94e2d5">import</span> <span style="color:#fab387">pprint</span>  <span style="color:#6c7086;font-style:italic"># to print indented dictionary</span>
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">3</span><span>pipe <span style="color:#89dceb;font-weight:bold">=</span> pipeline(<span style="color:#a6e3a1">&#39;text2text-generation&#39;</span>, model<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#a6e3a1">&#34;google/flan-t5-base&#34;</span>)
@@ -1239,14 +1450,25 @@ There are lot of speculations on why model is able to perform such tasks. For ex
     target="_blank"
   >their own learnable parameters</a>. Furthermore, when we combining outputs from each &lsquo;attention heads&rsquo;, this combining opearation also has its own set of trainable parameters, so on and so on&hellip;Almost every stage of the matrix computations are parameterised, resulting the unbelievably <strong>massive</strong> Aİ models as of today.</p>
 <p><strong>So it&rsquo;s just a huge stacks of matirx calculations?</strong><br>
-In sense yes, it is. The three matrics in the attention head are commonly named as &lsquo;key&rsquo;. &lsquo;query&rsquo; and &lsquo;value&rsquo;, the idea behind these names are: &lsquo;user queries something, program looks for keys (i.e., keywords) to match with query, and value is whatever gets matched with&rsquo;. Honstly I found this explaination very confusing. We gave names to these matrics, we don&rsquo;t know much about their behaviour.</p>
+In sense yes, it is. The three matrics in the attention head are commonly named as &lsquo;key&rsquo;. &lsquo;query&rsquo; and &lsquo;value&rsquo;, the idea behind these names are: &lsquo;user queries something, program looks for keys (i.e., keywords) to match with query, and value is whatever gets matched with&rsquo;. Honstly I found this explaination very confusing, although by design, it does (sort of) work in such way. My main skeptcisim is that, just because we vaguely designed it this way does not mean it is really what&rsquo;s happening underneath. As shown in the demo earlier, a model that&rsquo;s not trained for English-Spanish translation did have some ability to do English-Spanish translation, innit. We gave names to these matrics, we don&rsquo;t know much about their behaviour.<br></p>
+<figure><img
+    class="my-0 rounded-md"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low"
+    alt="llm is magic text"
+    src="./featured.jpg"
+    ><figcaption>&lsquo;LLM is magic&rsquo;</figcaption></figure>
+<p><strong>What&rsquo;s up next?</strong><br>
+I think this is a rather good place to conclude this post, so I&rsquo;ll leave it here for now. I hope you find it helpfull.<br></p>
+<p>There are still a bit more stuffs that I&rsquo;d like to share, like how text-generation works and what&rsquo;s really happenning when we are training a generative model. We&rsquo;ve heard of the same old things over and over: &lsquo;generative LLM is just a very massive auto-complete!&rsquo;. Whilst I do aggree with it, I also find it not helpful if one wants to <em>understand</em> text generation, for both model training and model inference. <em>If time alows&hellip;.</em></p>
 
-<h2 class="relative group">Some Resources
-    <div id="some-resources" class="anchor"></div>
+<h2 class="relative group">Some Other Resources
+    <div id="some-other-resources" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#some-resources" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#some-other-resources" aria-label="Anchor">#</a>
     </span>
     
 </h2>
@@ -1270,6 +1492,23 @@ In sense yes, it is. The three matrics in the attention head are commonly named 
           
           
         </div>
+        
+          
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
         
         
 
@@ -1300,34 +1539,6 @@ In sense yes, it is. The three matrics in the attention head are commonly named 
     
     <footer class="pt-8 max-w-prose print:hidden">
       
-  
-    
-    
-    
-    <div class="pt-8">
-      <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
-      <div class="flex justify-between pt-3">
-        <span class="flex flex-col">
-          
-            <a
-              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
-              href="/posts/first-post/">
-              <span class="leading-6">
-                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;
-              </span>
-            </a>
-            
-              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                <time datetime="0001-01-01T00:00:00&#43;00:00">1 January 0001</time>
-              </span>
-            
-          
-        </span>
-        <span class="flex flex-col items-end">
-          
-        </span>
-      </div>
-    </div>
   
 
 
@@ -1388,12 +1599,33 @@ In sense yes, it is. The three matrics in the attention head are commonly named 
               </a>
             </li>
           
+            <li class=" flex mb-1 text-end sm:mb-0 sm:me-7 sm:last:me-0 ">
+              <a
+                class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center"
+                href="https://github.com/Yiheng-Yu"
+                title="">
+                
+                  <span class="mr-1">
+                    <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span>
+                  </span>
+                
+                GitHub
+              </a>
+            </li>
+          
         </ul>
       </nav>
     
   
   <div class="flex items-center justify-between">
     
+    
+      <p class="text-sm text-neutral-500 dark:text-neutral-400">
+          &copy;
+          2025
+          @Yiheng Yu
+      </p>
     
 
     

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Transformers on Hagfish</title>
+    <title>Transformers on Myxiniformes Moment</title>
     <link>http://localhost:1313/tags/transformers/</link>
-    <description>Recent content in Transformers on Hagfish</description>
+    <description>Recent content in Transformers on Myxiniformes Moment</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    
-    <lastBuildDate>Sun, 26 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/transformers/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>© 2025 @Yiheng Yu</copyright>
+    <lastBuildDate>Fri, 31 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/transformers/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>ELI5 Transformers (part 1?): Attention Mechanisms</title>
       <link>http://localhost:1313/posts/transformers-pt-1/</link>
-      <pubDate>Sun, 26 Oct 2025 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 31 Oct 2025 00:00:00 +0000</pubDate>
       
       <guid>http://localhost:1313/posts/transformers-pt-1/</guid>
       <description></description>

@@ -1,6 +1,7 @@
 ---
 title: "ELI5 Transformers (part 1?): Attention Mechanisms"
-date: 2025-10-26
+date: 2025-10-31
+publishDate: 2025-10-31
 draft: false
 description: "a description"
 font_family: "Monospace"
@@ -8,7 +9,7 @@ tags: ["transformers", "huggingface"]
 ---
 
 {{< katex >}}
-As someone without much backrounds in neither physics nor computer science, I find lots of available introductions on transformers very confusing, despite current Aİ bloom (the name "GPT" is short for 'Generative Pre-training <i>Transformer</i>'!). Most of the articles on transformers focuses on attention mechanisms, using either [the OG transformer](https://peterbloem.nl/blog/transformers) or [the classic BERT](https://towardsdatascience.com/a-complete-guide-to-bert-with-code-9f87602e4a11/) as examples. They would spend lot of time talking about embeddings & attetions on the encoding side, and skipped most the decoding by saying 'well you just do the same thing again and there you have it!'. Well that's not very helpful isn't it. Don't get me wrong, there are a lot of very good learning materials out there, for example the amazing [interactive transofmer explainer](https://poloclub.github.io/transformer-explainer). However, I always find these heavy tutorials not very suitable for my very short attention span or the autism tendency of getting lost in details.<br>
+As someone without much backrounds in neither physics nor computer science, I find lots of available introductions on transformers very confusing. Transformers is the talk of the street, GPT is short for 'Generative Pre-training <i>Transformer</i>'! However, most of the articles on transformers focuses on attention mechanisms, using either [the OG transformer](https://peterbloem.nl/blog/transformers) or [the classic BERT](https://towardsdatascience.com/a-complete-guide-to-bert-with-code-9f87602e4a11/) as examples. They would spend lot of time talking about embeddings & attetions on the encoding side, and skipped most the decoding by saying 'well you just do the same thing again and there you have it!'. Well that's not very helpful isn't it. Don't get me wrong, there are a lot of very good learning materials out there, for example the amazing [interactive transofmer explainer](https://poloclub.github.io/transformer-explainer). However, I always find these heavy tutorials not very suitable for my very short attention span or the autism tendency of getting lost in details.<br>
 
 Finally, I've decided to bite the bullet and spend some time have a read through the HuggingFace's source code for google's T5 Model, [THE encoder-decoder everyone on the steet are talking about](https://github.com/huggingface/transformers/blob/main/src/transformers/models/t5/modeling_t5.py). It was a relatively long process with lots of back and forth jumping between classes and methods. I could not emphasis how much I appretiate HuggingFace's [maximalist coding choice](https://huggingface.co/blog/transformers-design-philosophy), where the entire model architecture is contained inside one single .py file. The bonouns point is, I didn't experience the pain of come accross `import tensorflow` followed by one single if-else check [inside dataset iterator](https://github.com/huggingface/transformers/blob/v4.57.1/src/transformers/data/data_collator.py#L742)'. <br>
 
@@ -26,21 +27,23 @@ There's an important assumption here: just because model fits the data well does
 Transformers are preciesly these kinds of models: they are, surprisingly good at fitting into all sorts of data whilst the math behind the model probably doesn't have much to do with the mechanisms behind. We don't know how transformers works so well for text-based tasks. At least not yet. Originally, transformer was designed as an add-on to the text-processing neural network models in order to tackle with some tricky problems (these problems are not the main forcus of the current blogpost so I'm skipping them, but [here's a good article if you were interested](https://towardsdatascience.com/beautifully-illustrated-nlp-models-from-rnn-to-transformer-80d69faf2109/)). We just happened to discover that transformers alone is good enough to solve these problems, we just need to make the transformers much bigger. So that's where the Aİ bloom started: GPT2 solved issues in GPT1 by simply being 10 times bigger; the most-recently open-sourced [pretrained GPT-Oss](https://huggingface.co/mistralai/Mixtral-8x7B-v0.1), is 200 times bigger than [the previous openpsourced model, GPT2](https://huggingface.co/openai-community/gpt2) <i>(note: GPT-OSS is structurlly different from the original GPT2 but the fundamental ideas are the same.)</i>. There are even speculations suggesting transformer neural network models can be seen as some sort of universal function approximator. That is, it's capacable of 'approximate' other formulas/ functions with certain degree of accuracy, providing the model itself is big enough (['universal approximation theorem'](https://en.wikipedia.org/wiki/Universal_approximation_theorem)). <br>
 
 ## Try it out! Its uncanny (and magical)
-It is preciesly the reason why it's very suprising is that, transformers are able to produce pretty impressive results for tasks model that are not specifically trained for. You can try this out yourself. I'll use Flan-T5 as a demo here. Flan-T5 is a variation of T5 model that fine-tuned on instruction-specific tasks. That is, we can insert some instructions before our prompt and the model shall return different results based on different instructions.
-Here's path to the model if you wanted to learn more:<br>
+It is preciesly the reason why it's very suprising is that, transformers are able to produce pretty impressive results for tasks model that are not specifically trained for. You can try this out yourself. I'll use Flan-T5 as a demo here. Flan-T5 is a variation of T5 model that fine-tuned on instruction-specific tasks. That is, we can insert some instructions before our prompt and the model shall return different results based on different instructions.<br>
+
+I'll use Python for the demo here because it's convinent. Before starting, you might want to install `transformers` if you haven't done aleady. It's a library collecting huge tone of open-sourced transformer models that allows you explore around.<br>
+Open terminal, and run this command to install transformers:
+```sh
+pip install transformers
+```
+The model I am going to use is [T5, released by Google a couple of years ago](https://arxiv.org/pdf/2210.11416) Here's huggingface's link to the model:
 {{< huggingface model="google/flan-t5-base">}}
-(this is python by the way)<br>
 
-<i style="font-size:90%;">(note on Python installation: most of the mainstream python installations comes with a very good interactive shell that works like matlab/R-studio console. Modern Macbook and most of the mainstream Linux distributions has python pre-install as part of the operaion system. If you were using mac/linux, you can start an interactive python session by: open terminal -> type python -> hit enter. If you were using Windows and don't want to go through the faff of setting python up, just go to Microsoft Store, search 'Python', and download the most recent release from there. Then, you can launch python by: open terminal -> type python -> hit enter.)</i>
-
-Before starting, you might want to install `transformers` by running `pip install transformers` in case you haven't done so. It's a library collecting huge tone of open-sourced transformer models that allows you explore around. very neat. 
-
-And here's how you can try it out:
+In python, run these lines to download & initialise the model:
 ```python
 from transformers import pipeline
 import pprint  # to print indented dictionary
 pipe = pipeline('text2text-generation', model="google/flan-t5-base")
 ```
+
 To view the list of tasks the original T5 model fine-tuned on:
 
 ```python
@@ -326,10 +329,18 @@ You can think each of the attention head as a mini neural network: it takes some
 I wanted to point out the (maybe) obvious thing here: almost all operations mentioned contain learnable parameters. Inside individual attention heads, the three matrics convreted by inputs are typically converted by multiplying ('dot product') inputs with three **separate** matrices. These matrics are part of the learnable parameters for the attention head. When we combine matrices, the combination operation also has [their own learnable parameters](https://docs.pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html). Furthermore, when we combining outputs from each 'attention heads', this combining opearation also has its own set of trainable parameters, so on and so on...Almost every stage of the matrix computations are parameterised, resulting the unbelievably **massive** Aİ models as of today.
 
 **So it's just a huge stacks of matirx calculations?**<br>
-In sense yes, it is. The three matrics in the attention head are commonly named as 'key'. 'query' and 'value', the idea behind these names are: 'user queries something, program looks for keys (i.e., keywords) to match with query, and value is whatever gets matched with'. Honstly I found this explaination very confusing. We gave names to these matrics, we don't know much about their behaviour.
+In sense yes, it is. The three matrics in the attention head are commonly named as 'key'. 'query' and 'value', the idea behind these names are: 'user queries something, program looks for keys (i.e., keywords) to match with query, and value is whatever gets matched with'. Honstly I found this explaination very confusing, although by design, it does (sort of) work in such way. My main skeptcisim is that, just because we vaguely designed it this way does not mean it is really what's happening underneath. As shown in the demo earlier, a model that's not trained for English-Spanish translation did have some ability to do English-Spanish translation, innit. We gave names to these matrics, we don't know much about their behaviour.<br>
 
-## Some Resources
+![llm is magic text](./featured.jpg "'LLM is magic'")
+
+**What's up next?**<br>
+I think this is a rather good place to conclude this post, so I'll leave it here for now. I hope you find it helpfull.<br>
+
+There are still a bit more stuffs that I'd like to share, like how text-generation works and what's really happenning when we are training a generative model. We've heard of the same old things over and over: 'generative LLM is just a very massive auto-complete!'. Whilst I do aggree with it, I also find it not helpful if one wants to *understand* text generation, for both model training and model inference. *If time alows....*
+
+## Some Other Resources
 I hope whoever come accross this post would find it useful. Here are some extra reading materials that İ found particularly useful:<br>
 1. [Pytorch's step-byp-step guide on creating a generative LLM is prob one of the best out there that teaches you all the fundenmentals.](https://docs.pytorch.org/tutorials/intermediate/char_rnn_generation_tutorial.html)
 2. [BertViz, a very good visualisation tool for looking at attention heads layer by layer. You can run it interactively in a jupyter notebook.](https://github.com/jessevig/bertviz)
 3. [Huggingface's LLM cources. Although they tends to focus on the programming & practical applications, I found many of their conceptual guides very good for a beginner.](https://huggingface.co/learn/llm-course/en/chapter0/1)
+

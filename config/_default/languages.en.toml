@@ -2,19 +2,24 @@ disabled = false
 languageCode = "en"
 languageName = "English"
 weight = 1
-title = "Hagfish"
+title = "Myxiniformes Moment"
 
 [params]
 displayName = "EN"
 isoCode = "en"
 rtl = false
 dateFormat = "2 January 2006"
-description = "Notes & thoughts"
-copyright = "Copy, _right?_ :thinking_face:"
+# description = "Notes & thoughts"
+# copyright = ""
 
   [params.author]
-  name = "Yiheng Yu"
-  links = [ ]
+  name = "@Yiheng Yu"
+  image = "doggo.jpg"
+  headline = "Notes & Thoughts"
+  # bio = "This is the the plaice for it."
+  
+    [[params.author.links]]
+    github = "https://github.com/Yiheng-Yu"
 
-["params.author"]
-name = "Yiheng Yu"
+    [[params.author.links]]
+    linkedin = "https://www.linkedin.com/in/yiheng-yu-9402121b6/"

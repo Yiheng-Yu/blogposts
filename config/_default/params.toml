@@ -3,7 +3,7 @@ defaultAppearance = "dark"
 autoSwitchAppearance = true
 enableA11y = false
 enableSearch = true
-enableCodeCopy = false
+enableCodeCopy = true
 replyByEmail = false
 disableImageOptimization = false
 disableImageOptimizationMD = false
@@ -21,23 +21,24 @@ verification = { }
 rssnext = { }
 advertisement = { }
 highlightCurrentMenuArea = true
-math=true
+math = true
+smartTOC = true
 
 [header]
-layout = "basic"
+layout = "fixed-fill"
 
 [footer]
 showMenu = true
-showCopyright = false
+showCopyright = true
 showThemeAttribution = true
 showAppearanceSwitcher = true
 showScrollToTop = true
 
 [homepage]
-layout = "page"
+layout = "profile"
 showRecent = true
 showRecentItems = "5"
-showMoreLink = false
+showMoreLink = true
 showMoreLinkDest = "/posts/"
 cardView = false
 cardViewScreenWidth = false
@@ -46,16 +47,16 @@ disableHeroImageFilter = false
 homepageImage = "."
 
 [article]
-showDate = "True"
+showDate = true
 showViews = false
 showLikes = false
 showDateOnlyInArticle = false
-showDateUpdated = false
+showDateUpdated = true
 showAuthor = false
 showHero = false
 layoutBackgroundBlur = true
 layoutBackgroundHeaderSpace = false
-showBreadcrumbs = false
+showBreadcrumbs = true
 showDraftLabel = true
 showEdit = false
 editAppendPath = true
@@ -65,17 +66,18 @@ showPagination = true
 invertPagination = false
 showReadingTime = false
 showTableOfContents = true
-showTaxonomies = false
+showTaxonomies = true
 showCategoryOnly = false
-showAuthorsBadges = false
+showAuthorsBadges = true
+showAuthorBottom = true
 showWordCount = true
-showZenMode = false
+showZenMode = true
 
 [list]
 showHero = false
 layoutBackgroundBlur = true
 layoutBackgroundHeaderSpace = true
-showBreadcrumbs = false
+showBreadcrumbs = true
 showSummary = false
 showViews = false
 showLikes = false
@@ -96,8 +98,9 @@ showHero = false
 showBreadcrumbs = false
 showViews = false
 showLikes = false
-showTableOfContents = false
+showTableOfContents = true
 cardView = false
+heroStyle = "background"
 
 [term]
 showHero = false
