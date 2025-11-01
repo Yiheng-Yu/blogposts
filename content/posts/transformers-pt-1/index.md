@@ -83,10 +83,8 @@ Althogh the model was not trained on Spanish translation tasks, it still produce
 ```json
 [{'generated_text': 'Me encanta el pescado!'}]
 ```
-<figure>
-<img src="LLM-BELL-CURVE.jpg" alt="drawing" width="450"/>
-<figcaption>'LLM is magic'</figcaption>
-</figure>
+
+
 There are lot of speculations on why model is able to perform such tasks. For exmaple, some researchers do suggest models that are big enough might [capture meanings behind words as well as language-specific syntax features](https://aclanthology.org/W19-4828/), and thus are able to convert one language to another. You can view how big the model in the demo is:
 
 ```python
@@ -96,6 +94,9 @@ Output:
 ```python
 'Number of parameters: 247,577,856'
 ```
+
+![llm is magic text](./featured.jpg "'LLM is magic'")
+
 
 ## The Transformer Architecture
 We'll now take a look inside the transformer models and see what kind of math calculations is hapenning. `pytorch`, the python package that the T5 model in this demo is based off, provies very good tool for visulising model structures Using models mentioned from the previous section, if you want to look at what the model architecture, you can do so by running:
@@ -246,7 +247,7 @@ T5ForConditionalGeneration(
   (lm_head): Linear(in_features=768, out_features=32128, bias=False)
 )
 ```
-T5 model belongs to a sub-category of transformers called 'encoder-decoder'. That is, it's a combination of an encoder followed by a decoder. This post is a general introductions of the basics, and I'll talk about encoder/ decoders in more detail in more detail about this in the future (if time/ etc. allowed).
+T5 model belongs to a sub-category of transformers called 'encoder-decoder'. That is, it's a combination of an encoder followed by a decoder. This post is a general introductions of the basics, and I'll talk about encoder/ decoders in more detail in more detail about this in the future.
 
 ### Layer-by-Layer
 The general structure of a transformer model lookes like this:<br>
@@ -331,7 +332,6 @@ I wanted to point out the (maybe) obvious thing here: almost all operations ment
 **So it's just a huge stacks of matirx calculations?**<br>
 In sense yes, it is. The three matrics in the attention head are commonly named as 'key'. 'query' and 'value', the idea behind these names are: 'user queries something, program looks for keys (i.e., keywords) to match with query, and value is whatever gets matched with'. Honstly I found this explaination very confusing, although by design, it does (sort of) work in such way. My main skeptcisim is that, just because we vaguely designed it this way does not mean it is really what's happening underneath. As shown in the demo earlier, a model that's not trained for English-Spanish translation did have some ability to do English-Spanish translation, innit. We gave names to these matrics, we don't know much about their behaviour.<br>
 
-![llm is magic text](./featured.jpg "'LLM is magic'")
 
 **What's up next?**<br>
 I think this is a rather good place to conclude this post, so I'll leave it here for now. I hope you find it helpfull.<br>

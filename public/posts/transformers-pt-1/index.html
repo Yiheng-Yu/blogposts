@@ -378,7 +378,7 @@
     "keywords": ["transformers","huggingface"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "2915"
+    "wordCount": "2908"
   }]
   </script>
 
@@ -761,7 +761,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2025-10-31T00:00:00&#43;00:00">31 October 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2915 words</span><span class="px-2 text-primary-500">&middot;</span><span class="mb-[2px]">
+      <time datetime="2025-10-31T00:00:00&#43;00:00">31 October 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2908 words</span><span class="px-2 text-primary-500">&middot;</span><span class="mb-[2px]">
   <span
     id="zen-mode-button"
     class="text-lg hover:text-primary-500"
@@ -1180,15 +1180,22 @@ Open terminal, and run this command to install transformers:</p>
 <div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">1</span><span><span style="color:#89dceb">print</span>(pipe(<span style="color:#a6e3a1">&#39;translate English to Spanish: I love fish!!!!!&#39;</span>))
 </span></span></code></pre></div><p>Althogh the model was not trained on Spanish translation tasks, it still produced pretty impressive results:</p>
 <div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">1</span><span>[{<span style="color:#f38ba8">&#39;generated_text&#39;:</span> <span style="color:#f38ba8">&#39;Me</span> <span style="color:#f38ba8">encanta</span> <span style="color:#f38ba8">el</span> <span style="color:#f38ba8">pescado!&#39;</span>}]
-</span></span></code></pre></div><figure>
-<img src="LLM-BELL-CURVE.jpg" alt="drawing" width="450"/>
-<figcaption>'LLM is magic'</figcaption>
-</figure>
-There are lot of speculations on why model is able to perform such tasks. For exmaple, some researchers do suggest models that are big enough might [capture meanings behind words as well as language-specific syntax features](https://aclanthology.org/W19-4828/), and thus are able to convert one language to another. You can view how big the model in the demo is:
+</span></span></code></pre></div><p>There are lot of speculations on why model is able to perform such tasks. For exmaple, some researchers do suggest models that are big enough might <a
+  href="https://aclanthology.org/W19-4828/"
+    target="_blank"
+  >capture meanings behind words as well as language-specific syntax features</a>, and thus are able to convert one language to another. You can view how big the model in the demo is:</p>
 <div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">1</span><span>pprint<span style="color:#89dceb;font-weight:bold">.</span>pp(<span style="color:#f38ba8">f</span><span style="color:#a6e3a1">&#34;Number of parameters: </span><span style="color:#a6e3a1">{</span>pipe<span style="color:#89dceb;font-weight:bold">.</span>model<span style="color:#89dceb;font-weight:bold">.</span>num_parameters()<span style="color:#a6e3a1">:</span><span style="color:#a6e3a1">,</span><span style="color:#a6e3a1">}</span><span style="color:#a6e3a1">&#34;</span>)
 </span></span></code></pre></div><p>Output:</p>
 <div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">1</span><span><span style="color:#a6e3a1">&#39;Number of parameters: 247,577,856&#39;</span>
-</span></span></code></pre></div>
+</span></span></code></pre></div><figure><img
+    class="my-0 rounded-md"
+    loading="lazy"
+    decoding="async"
+    fetchpriority="low"
+    alt="llm is magic text"
+    src="./featured.jpg"
+    ><figcaption>&lsquo;LLM is magic&rsquo;</figcaption></figure>
+
 <h2 class="relative group">The Transformer Architecture
     <div id="the-transformer-architecture" class="anchor"></div>
     
@@ -1341,7 +1348,7 @@ There are lot of speculations on why model is able to perform such tasks. For ex
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">138</span><span>  )
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">139</span><span>  (lm_head): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">32128</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">140</span><span>)
-</span></span></code></pre></div><p>T5 model belongs to a sub-category of transformers called &rsquo;encoder-decoder&rsquo;. That is, it&rsquo;s a combination of an encoder followed by a decoder. This post is a general introductions of the basics, and I&rsquo;ll talk about encoder/ decoders in more detail in more detail about this in the future (if time/ etc. allowed).</p>
+</span></span></code></pre></div><p>T5 model belongs to a sub-category of transformers called &rsquo;encoder-decoder&rsquo;. That is, it&rsquo;s a combination of an encoder followed by a decoder. This post is a general introductions of the basics, and I&rsquo;ll talk about encoder/ decoders in more detail in more detail about this in the future.</p>
 
 <h3 class="relative group">Layer-by-Layer
     <div id="layer-by-layer" class="anchor"></div>
@@ -1451,14 +1458,6 @@ There are lot of speculations on why model is able to perform such tasks. For ex
   >their own learnable parameters</a>. Furthermore, when we combining outputs from each &lsquo;attention heads&rsquo;, this combining opearation also has its own set of trainable parameters, so on and so on&hellip;Almost every stage of the matrix computations are parameterised, resulting the unbelievably <strong>massive</strong> Aİ models as of today.</p>
 <p><strong>So it&rsquo;s just a huge stacks of matirx calculations?</strong><br>
 In sense yes, it is. The three matrics in the attention head are commonly named as &lsquo;key&rsquo;. &lsquo;query&rsquo; and &lsquo;value&rsquo;, the idea behind these names are: &lsquo;user queries something, program looks for keys (i.e., keywords) to match with query, and value is whatever gets matched with&rsquo;. Honstly I found this explaination very confusing, although by design, it does (sort of) work in such way. My main skeptcisim is that, just because we vaguely designed it this way does not mean it is really what&rsquo;s happening underneath. As shown in the demo earlier, a model that&rsquo;s not trained for English-Spanish translation did have some ability to do English-Spanish translation, innit. We gave names to these matrics, we don&rsquo;t know much about their behaviour.<br></p>
-<figure><img
-    class="my-0 rounded-md"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="low"
-    alt="llm is magic text"
-    src="./featured.jpg"
-    ><figcaption>&lsquo;LLM is magic&rsquo;</figcaption></figure>
 <p><strong>What&rsquo;s up next?</strong><br>
 I think this is a rather good place to conclude this post, so I&rsquo;ll leave it here for now. I hope you find it helpfull.<br></p>
 <p>There are still a bit more stuffs that I&rsquo;d like to share, like how text-generation works and what&rsquo;s really happenning when we are training a generative model. We&rsquo;ve heard of the same old things over and over: &lsquo;generative LLM is just a very massive auto-complete!&rsquo;. Whilst I do aggree with it, I also find it not helpful if one wants to <em>understand</em> text generation, for both model training and model inference. <em>If time alows&hellip;.</em></p>
