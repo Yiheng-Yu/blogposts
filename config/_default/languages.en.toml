@@ -9,17 +9,16 @@ displayName = "EN"
 isoCode = "en"
 rtl = false
 dateFormat = "2 January 2006"
-# description = "Notes & thoughts"
 # copyright = ""
 
   [params.author]
   name = "@Yiheng Yu"
   image = "doggo.jpg"
-  headline = "Notes & Thoughts"
-  # bio = "This is the the plaice for it."
+  headline = "The the industrial revolution and its consequence is auto-threading sewing machines (they are very epic)"
+  bio = "Maccie filet-o-dish meal is techanically fish and chips"
   
     [[params.author.links]]
     github = "https://github.com/Yiheng-Yu"
 
-    [[params.author.links]]
-    linkedin = "https://www.linkedin.com/in/yiheng-yu-9402121b6/"
+    # [[params.author.links]]
+    # linkedin = "https://www.linkedin.com/in/yiheng-yu-9402121b6/"

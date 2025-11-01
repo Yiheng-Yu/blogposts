@@ -5,7 +5,8 @@ publishDate: 2025-10-31
 draft: false
 description: "a description"
 font_family: "Monospace"
-tags: ["transformers", "huggingface"]
+tags: ["transformers",]
+category: "LLM-Stuff"
 ---
 
 {{< katex >}}
@@ -84,7 +85,6 @@ Althogh the model was not trained on Spanish translation tasks, it still produce
 [{'generated_text': 'Me encanta el pescado!'}]
 ```
 
-
 There are lot of speculations on why model is able to perform such tasks. For exmaple, some researchers do suggest models that are big enough might [capture meanings behind words as well as language-specific syntax features](https://aclanthology.org/W19-4828/), and thus are able to convert one language to another. You can view how big the model in the demo is:
 
 ```python
@@ -97,7 +97,7 @@ Output:
 
 ![llm is magic text](./featured.jpg "'LLM is magic'")
 
-
+<!--  -->
 ## The Transformer Architecture
 We'll now take a look inside the transformer models and see what kind of math calculations is hapenning. `pytorch`, the python package that the T5 model in this demo is based off, provies very good tool for visulising model structures Using models mentioned from the previous section, if you want to look at what the model architecture, you can do so by running:
 ```python
