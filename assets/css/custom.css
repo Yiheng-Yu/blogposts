@@ -36,3 +36,13 @@ pre code {
     overflow-y: auto; 
     overflow-x: auto;
 }
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCZaQup0gBlax9ZBd4yIXk2WKskWX4QURQ",
+  authDomain: "blogpost-71ecd.firebaseapp.com",
+  projectId: "blogpost-71ecd",
+  storageBucket: "blogpost-71ecd.firebasestorage.app",
+  messagingSenderId: "300317438157",
+  appId: "1:300317438157:web:6791871f10371a0b60f984",
+  measurementId: "G-9603VK66SB" 
+};
