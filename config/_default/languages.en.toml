@@ -14,8 +14,8 @@ dateFormat = "2 January 2006"
   [params.author]
   name = "@Yiheng Yu"
   image = "doggo.jpg"
-  headline = "The the industrial revolution and its consequence is auto-threading sewing machines (they are very epic)"
-  bio = "Maccie filet-o-dish meal is techanically fish and chips"
+  headline = "Hi, I am a data scientist with a PhD in visual motion perception, with a very keen interest in all sorts of computational modellings. I slowly transitioned from Matlab to R, Python & Rust over the years because of licenses. My transition process has been very painful, since there's not a lot of systematic resources on learning these programming langagues for someone with a data science/ modelling background. I would wish to share some of the things that helped me along the way and hopefully helps others picking things up too."
+  bio = "The the industrial revolution and its consequence is auto-threading sewing machines (they are very epic)"
   
     [[params.author.links]]
     github = "https://github.com/Yiheng-Yu"

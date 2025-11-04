@@ -37,14 +37,13 @@ pip install transformers
 ```
 The model I am going to use is [T5, released by Google a couple of years ago](https://arxiv.org/pdf/2210.11416) Here's huggingface's link to the model:
 {{< huggingface model="google/flan-t5-base">}}
-
+ 
 In python, run these lines to download & initialise the model:
 ```python
 from transformers import pipeline
 import pprint  # to print indented dictionary
 pipe = pipeline('text2text-generation', model="google/flan-t5-base")
 ```
-
 To view the list of tasks the original T5 model fine-tuned on:
 
 ```python
