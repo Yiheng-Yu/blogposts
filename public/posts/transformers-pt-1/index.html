@@ -374,7 +374,7 @@
     "keywords": ["transformers"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "2908"
+    "wordCount": "3056"
   }]
   </script>
 
@@ -979,7 +979,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2025-10-31T00:00:00&#43;00:00">31 October 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2908 words</span><span class="px-2 text-primary-500">&middot;</span><span class="mb-[2px]">
+      <time datetime="2025-10-31T00:00:00&#43;00:00">31 October 2025</time><span class="px-2 text-primary-500">&middot;</span><span>3056 words</span><span class="px-2 text-primary-500">&middot;</span><span class="mb-[2px]">
   <span
     id="zen-mode-button"
     class="text-lg hover:text-primary-500"
@@ -1288,7 +1288,7 @@ As someone without much backrounds in neither physics nor computer science, I fi
 </h2>
 <p>It is preciesly the reason why it&rsquo;s very suprising is that, transformers are able to produce pretty impressive results for tasks model that are not specifically trained for. You can try this out yourself. I&rsquo;ll use Flan-T5 as a demo here. Flan-T5 is a variation of T5 model that fine-tuned on instruction-specific tasks. That is, we can insert some instructions before our prompt and the model shall return different results based on different instructions.<br></p>
 <p>I&rsquo;ll use Python for the demo here because it&rsquo;s convinent. Before starting, you might want to install <code>transformers</code> if you haven&rsquo;t done aleady. It&rsquo;s a library collecting huge tone of open-sourced transformer models that allows you explore around.<br>
-Open terminal, and run this command to install transformers:</p>
+Open terminal, run this command to install transformers:</p>
 <div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">1</span><span>pip install transformers
 </span></span></code></pre></div><p>The model I am going to use is <a
   href="https://arxiv.org/pdf/2210.11416"
@@ -1361,7 +1361,7 @@ Open terminal, and run this command to install transformers:</p>
 <div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">1</span><span><span style="color:#94e2d5">from</span> <span style="color:#fab387">transformers</span> <span style="color:#94e2d5">import</span> pipeline
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">2</span><span><span style="color:#94e2d5">import</span> <span style="color:#fab387">pprint</span>  <span style="color:#6c7086;font-style:italic"># to print indented dictionary</span>
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">3</span><span>pipe <span style="color:#89dceb;font-weight:bold">=</span> pipeline(<span style="color:#a6e3a1">&#39;text2text-generation&#39;</span>, model<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#a6e3a1">&#34;google/flan-t5-base&#34;</span>)
-</span></span></code></pre></div><p>To view the list of tasks the original T5 model fine-tuned on:</p>
+</span></span></code></pre></div><p>T5 is one of the very few models that comes with very well-documented records on what kind of task the particular model has been trained on. To view the list of tasks the original T5 model fine-tuned on, we can check the &rsquo;task_specific_params&rsquo; attribute in model.config:</p>
 <div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">1</span><span>pprint<span style="color:#89dceb;font-weight:bold">.</span>pp(pipe<span style="color:#89dceb;font-weight:bold">.</span>model<span style="color:#89dceb;font-weight:bold">.</span>config<span style="color:#89dceb;font-weight:bold">.</span>task_specific_params)
 </span></span></code></pre></div><p>Output:</p>
 <div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 1</span><span>{<span style="color:#a6e3a1">&#39;summarization&#39;</span>: {<span style="color:#a6e3a1">&#39;early_stopping&#39;</span>: <span style="color:#fab387">True</span>,
@@ -1383,12 +1383,17 @@ Open terminal, and run this command to install transformers:</p>
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">17</span><span>                          <span style="color:#a6e3a1">&#39;max_length&#39;</span>: <span style="color:#fab387">300</span>,
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">18</span><span>                          <span style="color:#a6e3a1">&#39;num_beams&#39;</span>: <span style="color:#fab387">4</span>,
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">19</span><span>                          <span style="color:#a6e3a1">&#39;prefix&#39;</span>: <span style="color:#a6e3a1">&#39;translate English to Romanian: &#39;</span>}}
-</span></span></code></pre></div><p>The &lsquo;prefix&rsquo; here refers to the instruction that the model has been trained on (An example input would be like <i>&lsquo;translate English to German: I LOVE FISH!!!!&rsquo;</i>). And as you can see, the model was trained on translation tasks for English-German, English-French, and English-Romanian. <br></p>
-<p>..So let&rsquo;s try Spanish translation:</p>
+</span></span></code></pre></div><p>These configurations are task-specific parameters for <a
+  href="https://huggingface.co/docs/transformers/en/main_classes/text_generation#transformers.GenerationMixin.generate"
+    target="_blank"
+  >text-generation</a>. Each item in the dictionary <i>(&rsquo;translation_en_to_de&rsquo;, &lsquo;summarization&rsquo; etc., )</i> corresponds to each text-generation task that the model been previously trained on. As shown in the code block above, the particular model we are testing today was trained on summarization, and three translation tasks: English-German, English-French, and English-Romanian.What we are interested is the &lsquo;prefix&rsquo; key under task name <i style="0.8em">(i.e., &rsquo;translate English to Romanian: &lsquo;)</i>. These are the texts that inserted at the beginning of every text input, as extra instructions of telling our model a bit more information about what it should do.<br>
+For example, if one wants to do english-to-romanian translation, the model input would be converted as follows:<br>
+        &lsquo;I LOVE FISH!!!!&rsquo; &ndash;&gt; <i>&lsquo;translate English to German: I LOVE FISH!!!!&rsquo;</i><br></p>
+<p>..So instead of languages model already trained on, let&rsquo;s try something model never trined before: English to Spanish translation:</p>
 <div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">1</span><span><span style="color:#89dceb">print</span>(pipe(<span style="color:#a6e3a1">&#39;translate English to Spanish: I love fish!!!!!&#39;</span>))
 </span></span></code></pre></div><p>Althogh the model was not trained on Spanish translation tasks, it still produced pretty impressive results:</p>
 <div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">1</span><span>[{<span style="color:#f38ba8">&#39;generated_text&#39;:</span> <span style="color:#f38ba8">&#39;Me</span> <span style="color:#f38ba8">encanta</span> <span style="color:#f38ba8">el</span> <span style="color:#f38ba8">pescado!&#39;</span>}]
-</span></span></code></pre></div><p>There are lot of speculations on why model is able to perform such tasks. For exmaple, some researchers do suggest models that are big enough might <a
+</span></span></code></pre></div><p>It&rsquo;s very uncanny that model is able to do things us human did not ask it to do. There are lot of speculations on why model is able to perform such tasks. For exmaple, some researchers do suggest models that are big enough might <a
   href="https://aclanthology.org/W19-4828/"
     target="_blank"
   >capture meanings behind words as well as language-specific syntax features</a>, and thus are able to convert one language to another. You can view how big the model in the demo is:</p>

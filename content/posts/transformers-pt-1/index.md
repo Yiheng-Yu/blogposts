@@ -30,25 +30,23 @@ Transformers are preciesly these kinds of models: they are, surprisingly good at
 It is preciesly the reason why it's very suprising is that, transformers are able to produce pretty impressive results for tasks model that are not specifically trained for. You can try this out yourself. I'll use Flan-T5 as a demo here. Flan-T5 is a variation of T5 model that fine-tuned on instruction-specific tasks. That is, we can insert some instructions before our prompt and the model shall return different results based on different instructions.<br>
 
 I'll use Python for the demo here because it's convinent. Before starting, you might want to install `transformers` if you haven't done aleady. It's a library collecting huge tone of open-sourced transformer models that allows you explore around.<br>
-Open terminal, and run this command to install transformers:
+Open terminal, run this command to install transformers:
 ```sh
 pip install transformers
 ```
 The model I am going to use is [T5, released by Google a couple of years ago](https://arxiv.org/pdf/2210.11416) Here's huggingface's link to the model:
 {{< huggingface model="google/flan-t5-base">}}
- 
+
 In python, run these lines to download & initialise the model:
 ```python
 from transformers import pipeline
 import pprint  # to print indented dictionary
 pipe = pipeline('text2text-generation', model="google/flan-t5-base")
 ```
-To view the list of tasks the original T5 model fine-tuned on:
-
+T5 is one of the very few models that comes with very well-documented records on what kind of task the particular model has been trained on. To view the list of tasks the original T5 model fine-tuned on, we can check the 'task_specific_params' attribute in model.config:
 ```python
 pprint.pp(pipe.model.config.task_specific_params)
 ```
-
 Output:
 ```python
 {'summarization': {'early_stopping': True,
@@ -71,9 +69,12 @@ Output:
                           'num_beams': 4,
                           'prefix': 'translate English to Romanian: '}}
 ```
-The 'prefix' here refers to the instruction that the model has been trained on (An example input would be like <i>'translate English to German: I LOVE FISH!!!!'</i>). And as you can see, the model was trained on translation tasks for English-German, English-French, and English-Romanian. <br> 
+These configurations are task-specific parameters for [text-generation](https://huggingface.co/docs/transformers/en/main_classes/text_generation#transformers.GenerationMixin.generate). Each item in the dictionary <i>('translation_en_to_de', 'summarization' etc., )</i> corresponds to each text-generation task that the model been previously trained on. As shown in the code block above, the particular model we are testing today was trained on summarization, and three translation tasks: English-German, English-French, and English-Romanian.What we are interested is the 'prefix' key under task name <i style="0.8em">(i.e., 'translate English to Romanian: ')</i>. These are the texts that inserted at the beginning of every text input, as extra instructions of telling our model a bit more information about what it should do.<br>
+For example, if one wants to do english-to-romanian translation, the model input would be converted as follows:<br>
+        'I LOVE FISH!!!!' --> <i>'translate English to German: I LOVE FISH!!!!'</i><br>
 
-..So let's try Spanish translation:
+
+..So instead of languages model already trained on, let's try something model never trined before: English to Spanish translation:
 ```python
 print(pipe('translate English to Spanish: I love fish!!!!!'))
 ```
@@ -83,7 +84,7 @@ Althogh the model was not trained on Spanish translation tasks, it still produce
 [{'generated_text': 'Me encanta el pescado!'}]
 ```
 
-There are lot of speculations on why model is able to perform such tasks. For exmaple, some researchers do suggest models that are big enough might [capture meanings behind words as well as language-specific syntax features](https://aclanthology.org/W19-4828/), and thus are able to convert one language to another. You can view how big the model in the demo is:
+It's very uncanny that model is able to do things us human did not ask it to do. There are lot of speculations on why model is able to perform such tasks. For exmaple, some researchers do suggest models that are big enough might [capture meanings behind words as well as language-specific syntax features](https://aclanthology.org/W19-4828/), and thus are able to convert one language to another. You can view how big the model in the demo is:
 
 ```python
 pprint.pp(f"Number of parameters: {pipe.model.num_parameters():,}")
