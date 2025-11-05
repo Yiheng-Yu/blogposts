@@ -14,7 +14,15 @@ dateFormat = "2 January 2006"
   [params.author]
   name = "@Yiheng Yu"
   image = "doggo.jpg"
-  headline = "Hi, I am a data scientist with a PhD in visual motion perception, with a very keen interest in all sorts of computational modellings. I slowly transitioned from Matlab to R, Python & Rust over the years because of licenses. My transition process has been very painful, since there's not a lot of systematic resources on learning these programming langagues for someone with a data science/ modelling background. I would wish to share some of the things that helped me along the way and hopefully helps others picking things up too."
+  headline = """Hi, I'm a data scientist with a PhD in visual motion perception \
+  and a strong interest in computational modeling.<br>\
+  Over time, I've moved from Matlab to R, Python, and Rust — mostly for licensing reasons. \
+  The transition wasn't easy. There aren't many structured resources, \
+  only fragmented pieces of info scatterring here and there.<br>\
+  Therefore, I've decided to set up this blog, \
+  collating things that helped me along the way all in one place. <br>\
+  Hopefully, they'll help others too.<br>\
+  """
   bio = "The the industrial revolution and its consequence is auto-threading sewing machines (they are very epic)"
   
     [[params.author.links]]
