@@ -1,9 +1,8 @@
 ---
-title: "ELI5 Transformers (part 2) - Text Generation"
-subtitle: "(it's glorified classification)"
+title: "ELI5 Transformers (part 2) - Text Generation (it's glorified classification)"
 date: 2025-11-04
 publishDate: 2025-10-31
-draft: false
+draft: true
 description: "a description"
 font_family: "Monospace"
 tags: ["transformers", "AI", "ELI5"]
