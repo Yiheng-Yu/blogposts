@@ -23,9 +23,10 @@ advertisement = { }
 highlightCurrentMenuArea = true
 math = true
 smartTOC = true
+sitemap = { }
 
 [header]
-layout = "fixed-fill" 
+layout = "fixed-fill"
 
 [footer]
 showMenu = true
@@ -68,11 +69,11 @@ showReadingTime = false
 showTableOfContents = true
 showTaxonomies = true
 showCategoryOnly = false
-showAuthorsBadges = true
+showAuthorsBadges = false
 showAuthorBottom = true
 showWordCount = true
 showZenMode = true
-sharingLinks = ['bluesky', 'mastodon', 'linkedin']
+sharingLinks = [ "bluesky", "mastodon", "linkedin" ]
 
 [list]
 showHero = false
@@ -89,9 +90,6 @@ groupByYear = true
 cardView = false
 cardViewScreenWidth = false
 constrainItemsWidth = false
-
-[sitemap]
-# excludedKinds = [ "taxonomy", "term" ]
 
 [taxonomy]
 showTermCount = true
@@ -112,5 +110,3 @@ showTableOfContents = true
 groupByYear = false
 cardView = false
 cardViewScreenWidth = false
-
-
