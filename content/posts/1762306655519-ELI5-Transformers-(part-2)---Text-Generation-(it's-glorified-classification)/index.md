@@ -8,6 +8,14 @@ font_family: "Monospace"
 tags: ["transformers", "AI", "ELI5"]
 category: ["ELI5-Transformers",]
 ---
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9603VK66SB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9603VK66SB');
+</script>
  an example to get you started
 # This is a heading
 ## This is a subheading
