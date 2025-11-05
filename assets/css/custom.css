@@ -9,10 +9,18 @@ html {
     font-family: 'Atkinson Hyperlegible Next', sans-serif;
     font-size:110%;
     font-optical-sizing: auto;
+    text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
 }
 
 a {
   text-decoration: underline;
+}
+
+nav {
+  font-size:85%;
 }
 
 #footer a{ 
