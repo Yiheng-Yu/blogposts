@@ -1,5 +1,4 @@
-# colorScheme = "cream"
-colorScheme = "superdark"
+colorScheme = "cream"
 
 defaultAppearance = "dark"
 autoSwitchAppearance = true
