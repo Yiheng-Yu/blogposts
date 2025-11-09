@@ -9,7 +9,8 @@ displayName = "EN"
 isoCode = "en"
 rtl = false
 dateFormat = "2 January 2006"
-# copyright = ""
+logo = " "
+secondaryLogo = " "
 
   [params.author]
   name = "@Yiheng Yu"
@@ -17,12 +18,8 @@ dateFormat = "2 January 2006"
   email = "yuyiheng1994@gmail.com"
   headline = """
   Hi, I'm a data scientist with a PhD in visual motion perception and a passion for computational modeling. <br>
-  This blog collects my study notes/ thoughts and resources that helped me learning programming. <br>\
-  Hopefully, it helps you too.\
-  """
+  This blog collects my study notes/ thoughts and resources that helped me learning programming. <br>Hopefully, it helps you too."""
   bio = "The the industrial revolution and its consequence is auto-threading sewing machines (they are very epic)"
-  
+
     [[params.author.links]]
     github = "https://github.com/Yiheng-Yu"
-    # [[params.author.links]]
-    # linkedin = "https://www.linkedin.com/in/yiheng-yu-9402121b6/"
