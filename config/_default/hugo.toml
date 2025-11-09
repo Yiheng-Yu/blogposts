@@ -11,8 +11,8 @@ googleAnalytics = "G-9603VK66SB"
 id = "G-9603VK66SB"
 
 [privacy.googleAnalytics]
-disable = false
-respectDoNotTrack = false
+disable = true
+respectDoNotTrack = true
 
 [pagination]
 pagerSize = 100

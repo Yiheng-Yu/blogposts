@@ -1,5 +1,5 @@
 ---
-title: "ELI5 Transformers (part 1?): Attention Mechanisms"
+title: "ELI5 Transformers part 1: Attention Mechanisms"
 date: 2025-10-31
 publishDate: 2025-10-31
 draft: false
@@ -8,14 +8,6 @@ font_family: "Monospace"
 tags: ["transformers", "AI", "ELI5"]
 category: ["ELI5-Transformers",]
 ---
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9603VK66SB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-9603VK66SB');
-</script>
 {{< katex >}}
 As someone without much backrounds in neither physics nor computer science, I find lots of available introductions on transformers very confusing. Transformers is the talk of the street, GPT is short for 'Generative Pre-training <i>Transformer</i>'! However, most of the articles on transformers focuses on attention mechanisms, using either [the OG transformer](https://peterbloem.nl/blog/transformers) or [the classic BERT](https://towardsdatascience.com/a-complete-guide-to-bert-with-code-9f87602e4a11/) as examples. They would spend lot of time talking about embeddings & attetions on the encoding side, and skipped most the decoding by saying 'well you just do the same thing again and there you have it!'. Well that's not very helpful isn't it. Don't get me wrong, there are a lot of very good learning materials out there, for example the amazing [interactive transofmer explainer](https://poloclub.github.io/transformer-explainer). However, I always find these heavy tutorials not very suitable for my very short attention span or the autism tendency of getting lost in details.<br>
 
