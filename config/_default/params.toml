@@ -1,4 +1,6 @@
-colorScheme = "cream"
+# colorScheme = "cream"
+colorScheme = "superdark"
+
 defaultAppearance = "dark"
 autoSwitchAppearance = true
 enableA11y = true
@@ -94,7 +96,7 @@ constrainItemsWidth = false
 [taxonomy]
 showTermCount = true
 showHero = false
-showBreadcrumbs = false
+showBreadcrumbs = true
 showViews = false
 showLikes = false
 showTableOfContents = true
@@ -110,3 +112,6 @@ showTableOfContents = true
 groupByYear = false
 cardView = false
 cardViewScreenWidth = false
+
+[author]
+email = "yuyiheng1994@gmail.com"

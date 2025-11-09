@@ -44,3 +44,9 @@ pre code {
     overflow-y: auto; 
     overflow-x: auto;
 }
+
+
+::selection {
+  color: oklch(95.3% 0.051 180.801);
+  background: oklch(60% 0.118 184.704);
+}

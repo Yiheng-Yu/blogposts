@@ -14,19 +14,15 @@ dateFormat = "2 January 2006"
   [params.author]
   name = "@Yiheng Yu"
   image = "doggo.jpg"
-  headline = """Hi, I'm a data scientist with a PhD in visual motion perception \
-  and a strong interest in computational modeling.<br>\
-  Over time, I've moved from Matlab to R, Python, and Rust — mostly for licensing reasons. \
-  The transition wasn't easy. There aren't many structured resources, \
-  only fragmented pieces of info scatterring here and there.<br>\
-  Therefore, I've decided to set up this blog, \
-  collating things that helped me along the way all in one place. <br>\
-  Hopefully, they'll help others too.<br>\
+  email = "yuyiheng1994@gmail.com"
+  headline = """
+  Hi, I'm a data scientist with a PhD in visual motion perception and a passion for computational modeling. <br>
+  This blog collects my study notes/ thoughts and resources that helped me learning programming. <br>\
+  Hopefully, it helps you too.\
   """
   bio = "The the industrial revolution and its consequence is auto-threading sewing machines (they are very epic)"
   
     [[params.author.links]]
     github = "https://github.com/Yiheng-Yu"
-
     # [[params.author.links]]
     # linkedin = "https://www.linkedin.com/in/yiheng-yu-9402121b6/"

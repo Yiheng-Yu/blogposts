@@ -6,6 +6,8 @@
     <description>Recent content in Tags on Myxiniformes Moment</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
+    <managingEditor>yuyiheng1994@gmail.com (@Yiheng Yu)</managingEditor>
+    <webMaster>yuyiheng1994@gmail.com (@Yiheng Yu)</webMaster>
     <copyright>© 2025 @Yiheng Yu</copyright>
     <lastBuildDate>Fri, 31 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -13,7 +15,7 @@
       <title>AI</title>
       <link>http://localhost:1313/tags/ai/</link>
       <pubDate>Fri, 31 Oct 2025 00:00:00 +0000</pubDate>
-      
+      <author>yuyiheng1994@gmail.com (@Yiheng Yu)</author>
       <guid>http://localhost:1313/tags/ai/</guid>
       <description></description>
       
@@ -23,7 +25,7 @@
       <title>ELI5</title>
       <link>http://localhost:1313/tags/eli5/</link>
       <pubDate>Fri, 31 Oct 2025 00:00:00 +0000</pubDate>
-      
+      <author>yuyiheng1994@gmail.com (@Yiheng Yu)</author>
       <guid>http://localhost:1313/tags/eli5/</guid>
       <description></description>
       
@@ -33,7 +35,7 @@
       <title>Transformers</title>
       <link>http://localhost:1313/tags/transformers/</link>
       <pubDate>Fri, 31 Oct 2025 00:00:00 +0000</pubDate>
-      
+      <author>yuyiheng1994@gmail.com (@Yiheng Yu)</author>
       <guid>http://localhost:1313/tags/transformers/</guid>
       <description></description>
       
