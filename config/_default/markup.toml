@@ -24,7 +24,7 @@
   hl_inline = false
   lineAnchors = ''
   lineNoStart = 1
-  lineNos = true
+  lineNos = false
   lineNumbersInTable = false
   style = 'catppuccin-mocha'
   tabWidth = 4

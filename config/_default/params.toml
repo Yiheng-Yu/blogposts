@@ -1,5 +1,4 @@
-colorScheme = "cream"
-
+colorScheme = "superdark"
 defaultAppearance = "dark"
 autoSwitchAppearance = true
 enableA11y = true
@@ -81,7 +80,7 @@ showHero = false
 layoutBackgroundBlur = true
 layoutBackgroundHeaderSpace = true
 showBreadcrumbs = true
-showSummary = false
+showSummary = true
 showViews = false
 showLikes = false
 showTableOfContents = false

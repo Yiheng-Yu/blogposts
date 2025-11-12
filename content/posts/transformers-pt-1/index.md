@@ -1,11 +1,11 @@
 ---
-title: "ELI5 Transformers part 1: Attention Mechanisms"
+title: "ELI5 Transformers (Part 1): Attention Mechanism "
 date: 2025-10-31
 publishDate: 2025-10-31
 draft: false
-description: "a description"
+summary: "(it's glorified linear algebra)"
 font_family: "Monospace"
-tags: ["transformers", "AI", "ELI5"]
+tags: ["huggingface", "AI", "ELI5"]
 category: ["ELI5-Transformers",]
 ---
 {{< katex >}}

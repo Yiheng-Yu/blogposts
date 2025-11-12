@@ -19,6 +19,12 @@ a {
   text-decoration: underline;
 }
 
+.summary {
+ font-style: italic;
+}
+.post-summary {
+  font-style: italic;
+}
 nav {
   font-size:85%;
 }
@@ -44,7 +50,6 @@ pre code {
     overflow-y: auto; 
     overflow-x: auto;
 }
-
 
 ::selection {
   color: oklch(95.3% 0.051 180.801);
