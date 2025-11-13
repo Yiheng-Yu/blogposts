@@ -5,7 +5,7 @@
   class="scroll-smooth"
   data-default-appearance="dark"
   data-auto-appearance="true"><head>
-	<meta name="generator" content="Hugo 0.152.2">
+	<meta name="generator" content="Hugo 0.152.2"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8">
   
     <meta http-equiv="content-language" content="en">
@@ -25,7 +25,7 @@
   
   
   
-  <link rel="canonical" href="https://example.org/">
+  <link rel="canonical" href="http://localhost:1313/">
   
     
       <link rel="alternate" type="application/rss+xml" href="/index.xml" title="Myxiniformes Moment" />
@@ -49,7 +49,7 @@
   
 
   
-  <meta property="og:url" content="https://example.org/">
+  <meta property="og:url" content="http://localhost:1313/">
   <meta property="og:site_name" content="Myxiniformes Moment">
   <meta property="og:title" content="Myxiniformes Moment">
   <meta property="og:locale" content="en">
@@ -104,8 +104,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.069f54678077cdd1ff0d292d3d1607b43f6a687879fa11bb21f6915ed78a0422c83ac96ee9c63e6ce0c0d9b2ad5379e61c20d3e55ae52b5f459051c1b6c25aa7.css"
-    integrity="sha512-Bp9UZ4B3zdH/DSktPRYHtD9qaHh5&#43;hG7IfaRXteKBCLIOslu6cY&#43;bODA2bKtU3nmHCDT5VrlK19FkFHBtsJapw==">
+    href="/css/main.bundle.min.bc171e7d7cf34a609f4f95ba4e5ce73291baf94f3d72575c51ae6812779e49a15bf1ceb8e465c9d1b8e0d877b3dfec92feef2a5a9bdee83b2b8ef148762cd148.css"
+    integrity="sha512-vBcefXzzSmCfT5W6TlznMpG6&#43;U89cldcUa5oEneeSaFb8c645GXJ0bjg2Hez3&#43;yS/u8qWpve6DsrjvFIdizRSA==">
 
   
   
@@ -210,11 +210,11 @@
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": "https:\/\/example.org\/",
+    "@id": "http:\/\/localhost:1313\/",
     "name": "Myxiniformes Moment",
     
     "inLanguage": "en",
-    "url": "https:\/\/example.org\/",
+    "url": "http:\/\/localhost:1313\/",
     
     "publisher" : {
       "@type": "Person",
@@ -227,32 +227,37 @@
 
   
   
+
+  
+  
+
+  
+  
+
+  
+  
     
+      <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+      <script>
 
-  <script
-  async
-  src="https://www.googletagmanager.com/gtag/js?id=G-9603VK66SB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    const firebaseConfig = {
+      apiKey: "AIzaSyCZaQup0gBlax9ZBd4yIXk2WKskWX4QURQ",
+      authDomain: "blogpost-71ecd.firebaseapp.com",
+      projectId: "blogpost-71ecd",
+      storageBucket: "blogpost-71ecd.firebasestorage.app",
+      messagingSenderId: "300317438157",
+      appId: "1:300317438157:web:6791871f10371a0b60f984",
+      measurementId: "G-CF748HCJ5N"
+    };
 
-  gtag('config', 'G-9603VK66SB');
-</script>
+        var app = firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+        var auth = firebase.auth();
 
-
-
-
-
-  
-
-  
-  
-
-  
-  
-
-  
+      </script>
+    
   
 
   
@@ -771,16 +776,6 @@
 
 
 
-  <script>
-    (function () {
-      var $mainmenu = $(".main-menu");
-      var path = window.location.pathname;
-      $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
-        $(e).children("p").addClass("active");
-      });
-    })();
-  </script>
-
 
   </div>
 </div>
@@ -1218,7 +1213,7 @@ This blog collects my study notes/ thoughts and resources that helped me learnin
 <div
   id="search-wrapper"
   class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh] z-500"
-  data-url="https://example.org/">
+  data-url="http://localhost:1313/">
   <div
     id="search-modal"
     class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800">
