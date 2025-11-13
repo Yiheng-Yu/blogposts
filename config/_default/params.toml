@@ -12,7 +12,16 @@ hotlinkFeatureImage = false
 fingerprintAlgorithm = "sha512"
 giteaDefaultServer = "https://git.fsfe.org"
 forgejoDefaultServer = "https://v11.next.forgejo.org"
-firebase = { }
+firebase = {
+  apiKey: "AIzaSyCZaQup0gBlax9ZBd4yIXk2WKskWX4QURQ",
+  authDomain: "blogpost-71ecd.firebaseapp.com",
+  databaseURL: "https://blogpost-71ecd-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "blogpost-71ecd",
+  storageBucket: "blogpost-71ecd.firebasestorage.app",
+  messagingSenderId: "300317438157",
+  appId: "1:300317438157:web:6791871f10371a0b60f984",
+  measurementId: "G-CF748HCJ5N",
+}
 fathomAnalytics = { }
 umamiAnalytics = { }
 selineAnalytics = { }
@@ -49,7 +58,7 @@ homepageImage = "."
 
 [article]
 showDate = true
-showViews = false
+showViews = true
 showLikes = false
 showDateOnlyInArticle = false
 showDateUpdated = true
