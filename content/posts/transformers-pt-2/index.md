@@ -2,7 +2,7 @@
 title: "ELI5 Transformers (Part 1) - Generation"
 date: 2025-11-11
 publishDate: 2025-11-11
-draft: false
+draft: true
 summary: "(it's glorified sequence classification)"
 font_family: "Monospace"
 tags: ["huggingface", "AI", "ELI5", "pytorch"]
