@@ -377,7 +377,7 @@
     "keywords": ["huggingface","AI","ELI5","pytorch"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "317"
+    "wordCount": "557"
   }]
   </script>
 
@@ -1022,7 +1022,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2025-11-11T00:00:00&#43;00:00">11 November 2025</time><span class="px-2 text-primary-500">&middot;</span><span>317 words</span><span class="px-2 text-primary-500">&middot;</span><span class="mb-[2px]">
+      <time datetime="2025-11-11T00:00:00&#43;00:00">11 November 2025</time><span class="px-2 text-primary-500">&middot;</span><span>557 words</span><span class="px-2 text-primary-500">&middot;</span><span class="mb-[2px]">
   <span
     id="zen-mode-button"
     class="text-lg hover:text-primary-500"
@@ -1151,7 +1151,12 @@
     class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#prep">Prep</a></li>
+    <li><a href="#preparation">Preparation</a>
+      <ul>
+        <li><a href="#download-the-model">Download the model</a></li>
+        <li><a href="#testing-text-generation">Testing text generation</a></li>
+      </ul>
+    </li>
     <li><a href="#quick-recap-on-transformer-architecture">Quick recap on transformer architecture</a>
       <ul>
         <li><a href="#1---inputs---outputs">1 - Inputs &lt;-&gt; outputs</a></li>
@@ -1174,7 +1179,12 @@
     class="py-2 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#prep">Prep</a></li>
+    <li><a href="#preparation">Preparation</a>
+      <ul>
+        <li><a href="#download-the-model">Download the model</a></li>
+        <li><a href="#testing-text-generation">Testing text generation</a></li>
+      </ul>
+    </li>
     <li><a href="#quick-recap-on-transformer-architecture">Quick recap on transformer architecture</a>
       <ul>
         <li><a href="#1---inputs---outputs">1 - Inputs &lt;-&gt; outputs</a></li>
@@ -1315,15 +1325,25 @@
 <p>I&rsquo;m pretty sure you&rsquo;ve already heard about someting like this before: &lsquo;generative LLM is just slightly advanced auto complete&rsquo;. Or, something like &lsquo;all it does is predicting what&rsquo;s the most likely next word with all the previous words given&rsquo;.</p>
 <p>Today I would like to invite you think of text generation in a very different perspective, at least it&rsquo;s the persceptive I found helped me the most: <em><strong>text generation is glorified sequence classification.</strong></em> I&rsquo;m going to use <strong>GPT-2</strong> model as an example, walk you through the mechanism of text generation with the source code, and show you how text generation <em>actually</em> works.</p>
 
-<h2 class="relative group">Prep
-    <div id="prep" class="anchor"></div>
+<h2 class="relative group">Preparation
+    <div id="preparation" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#prep" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#preparation" aria-label="Anchor">#</a>
     </span>
     
 </h2>
+
+<h3 class="relative group">Download the model
+    <div id="download-the-model" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#download-the-model" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
 <p>Open termianl and type-in these codes to install depencies in case you haven&rsquo;t done so:</p>
 <div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pip install transformers
 </span></span></code></pre></div><p>Then in terminal, type &lsquo;python&rsquo; to start python interactive REPL:</p>
@@ -1334,17 +1354,58 @@
 </span></span><span style="display:flex;"><span>&gt;&gt;&gt;
 </span></span></code></pre></div><p>Import dependencies:</p>
 <div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#94e2d5">import</span> <span style="color:#fab387">torch</span>
-</span></span><span style="display:flex;"><span><span style="color:#94e2d5">from</span> <span style="color:#fab387">transformers</span> <span style="color:#94e2d5">import</span> AutoTokenizer, AutoModelForCausalLM, TextGenerationPipeline
+</span></span><span style="display:flex;"><span><span style="color:#94e2d5">from</span> <span style="color:#fab387">transformers</span> <span style="color:#94e2d5">import</span> pipeline
 </span></span></code></pre></div><p><em>As of November 2025, Pytorch/ Apple still haven&rsquo;t fixed the <a
   href="https://github.com/pytorch/pytorch/issues/91368"
     target="_blank"
   >memory leak</a> issue on Apple Silicon devices (i.e., post-2020 Macbooks). As a result, running models with pytorch for some period of time will gets slower and slower over time. Just for demonstration purpose, I&rsquo;d recomment manually set pytorch device as &lsquo;cpu&rsquo; because of this. Skip this step if you were confident this won&rsquo;t happen. <br>Since we are just doing demonstrations, we can simly set torch device as &lsquo;cpu&rsquo;:<br></em></p>
-<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>torch<span style="color:#89dceb;font-weight:bold">.</span>set_default_device(<span style="color:#a6e3a1">&#39;cpu&#39;</span>)
-</span></span></code></pre></div><p>And download the model:</p>
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>torch<span style="color:#89dceb;font-weight:bold">.</span>set_default_device(<span style="color:#a6e3a1">&#39;cpu&#39;</span>)  <span style="color:#6c7086;font-style:italic"># or &#39;cuda&#39; if you&#39;d like to use GPU, would not recommend &#39;mps&#39; (at least for torch&lt;=2.9.1)</span>
+</span></span></code></pre></div><p>Download the model:</p>
 <div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>checkpoint <span style="color:#89dceb;font-weight:bold">=</span> <span style="color:#a6e3a1">&#34;openai-community/gpt2&#34;</span>
-</span></span><span style="display:flex;"><span>tokenizer <span style="color:#89dceb;font-weight:bold">=</span> AutoTokenizer<span style="color:#89dceb;font-weight:bold">.</span>from_pretrained(checkpoint)
-</span></span><span style="display:flex;"><span>model <span style="color:#89dceb;font-weight:bold">=</span> AutoModelForCausalLM<span style="color:#89dceb;font-weight:bold">.</span>from_pretrained(checkpoint)
-</span></span><span style="display:flex;"><span>pipeline <span style="color:#89dceb;font-weight:bold">=</span> TextGenerationPipeline(model<span style="color:#89dceb;font-weight:bold">=</span>model, tokenizer<span style="color:#89dceb;font-weight:bold">=</span>tokenizer, max_new_tokens<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">128</span>)
+</span></span><span style="display:flex;"><span>device <span style="color:#89dceb;font-weight:bold">=</span> torch<span style="color:#89dceb;font-weight:bold">.</span>get_default_device()
+</span></span><span style="display:flex;"><span>pipe <span style="color:#89dceb;font-weight:bold">=</span> pipeline(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e3a1">&#39;text-generation&#39;</span>, 
+</span></span><span style="display:flex;"><span>    model<span style="color:#89dceb;font-weight:bold">=</span>checkpoint, 
+</span></span><span style="display:flex;"><span>    device<span style="color:#89dceb;font-weight:bold">=</span>device,
+</span></span><span style="display:flex;"><span>    max_new_tokens<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">256</span>,
+</span></span><span style="display:flex;"><span>    repetition_penalty<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">1.5</span>,
+</span></span><span style="display:flex;"><span>    do_sample<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">True</span>,
+</span></span><span style="display:flex;"><span>    temperature<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.8</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span></code></pre></div><p>The openai GPT2 model released on Huggingface doesn&rsquo;t come with some pretty import settings. We&rsquo;ll need to manually amend them first:</p>
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>pipe<span style="color:#89dceb;font-weight:bold">.</span>generation_config<span style="color:#89dceb;font-weight:bold">.</span>pad_token_id <span style="color:#89dceb;font-weight:bold">=</span> pipe<span style="color:#89dceb;font-weight:bold">.</span>tokenizer<span style="color:#89dceb;font-weight:bold">.</span>eos_token_id
+</span></span><span style="display:flex;"><span>pipe<span style="color:#89dceb;font-weight:bold">.</span>generation_config<span style="color:#89dceb;font-weight:bold">.</span>bos_token_id <span style="color:#89dceb;font-weight:bold">=</span> pipe<span style="color:#89dceb;font-weight:bold">.</span>tokenizer<span style="color:#89dceb;font-weight:bold">.</span>eos_token_id
+</span></span></code></pre></div>
+<h3 class="relative group">Testing text generation
+    <div id="testing-text-generation" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#testing-text-generation" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>We&rsquo;ll first test the text-generation model. Here&rsquo;s a little function to help with text generation. Basically, instead of returning the raw output (list of dictionaries), this function extracts the generated text and prints it directly, just for easier reading.</p>
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#cba6f7">def</span> <span style="color:#89b4fa">generate</span>(text:<span style="color:#89dceb">str</span>, <span style="color:#89dceb;font-weight:bold">**</span>generate_kwargs) <span style="color:#89dceb;font-weight:bold">-&gt;</span> <span style="color:#fab387">None</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e3a1">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e3a1">    Run text generation pipeline and print out the generated text.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e3a1">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    result <span style="color:#89dceb;font-weight:bold">=</span> pipe(text, <span style="color:#89dceb;font-weight:bold">**</span>generate_kwargs)
+</span></span><span style="display:flex;"><span>    <span style="color:#89dceb">print</span>(result[<span style="color:#fab387">0</span>][<span style="color:#a6e3a1">&#39;generated_text&#39;</span>])
+</span></span></code></pre></div><p>&hellip;and now you can use this function to try out text generation yourself:</p>
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>generate(<span style="color:#a6e3a1">&#34;Who&#39;s that Pokemon!?!?&#34;</span>, max_new_tokens<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">5</span>)
+</span></span></code></pre></div><p>Since we&rsquo;ve set <code>do_sample=True</code> in our <code>pipeline</code>, text generation is done through random-sampling. Model would generate slightly different answer everytime we run our <code>generation</code> function:</p>
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#cba6f7">for</span> _ <span style="color:#89dceb;font-weight:bold">in</span> <span style="color:#89dceb">range</span>(<span style="color:#fab387">5</span>):
+</span></span><span style="display:flex;"><span>    generate(<span style="color:#a6e3a1">&#34;Who&#39;s that Pokemon!?!?&#34;</span>, max_new_tokens<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">5</span>)
+</span></span></code></pre></div><p>Your output would be very different from mine:</p>
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>Who&#39;s that Pokemon? Haha… This one
+</span></span><span style="display:flex;"><span>Who&#39;s that Pokemon? I can&#39;t really recall
+</span></span><span style="display:flex;"><span>Who&#39;s that Pokemon? It&#39;ll have a head
+</span></span><span style="display:flex;"><span>Who&#39;s that Pokemon? I&#39;m going to catch
+</span></span><span style="display:flex;"><span>Who&#39;s that Pokemon?
+</span></span><span style="display:flex;"><span>The first week has
+</span></span></code></pre></div><p><em>You can generate much longer text by setting &lsquo;max_new_tokens&rsquo; to a higher number, note that the model basically generates typical Aİ slops when it&rsquo;s too large:</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>generate(<span style="color:#a6e3a1">&#34;If you saw something that doesn&#39;t look right,&#34;</span>, max_new_tokens<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">1024</span>)<span style="color:#89dceb;font-weight:bold">&lt;</span>br<span style="color:#89dceb;font-weight:bold">&gt;</span>
 </span></span></code></pre></div>
 <h2 class="relative group">Quick recap on transformer architecture
     <div id="quick-recap-on-transformer-architecture" class="anchor"></div>

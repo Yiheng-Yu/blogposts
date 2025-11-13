@@ -16,8 +16,7 @@
  weight = 10
 
 
-
-#[[main]]
+# [[main]]
 #  name = "Parent"
 #  weight = 20
 
@@ -51,6 +50,7 @@
 
 [[main]]
  name = "Tags"
+#  parent = "Main"
  pageRef = "tags"
  weight = 30
 

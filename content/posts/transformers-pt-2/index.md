@@ -16,8 +16,8 @@ I'm pretty sure you've already heard about someting like this before: 'generativ
 
 Today I would like to invite you think of text generation in a very different perspective, at least it's the persceptive I found helped me the most: ***text generation is glorified sequence classification.*** I'm going to use **GPT-2** model as an example, walk you through the mechanism of text generation with the source code, and show you how text generation *actually* works.
 
-
-## Prep
+## Preparation
+### Download the model
 Open termianl and type-in these codes to install depencies in case you haven't done so:
 ```sh
 pip install transformers
@@ -37,23 +37,69 @@ Type "help", "copyright", "credits" or "license" for more information.
 Import dependencies:
 ```python
 import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM, TextGenerationPipeline
+from transformers import pipeline
 ```
 
 *As of November 2025, Pytorch/ Apple still haven't fixed the [memory leak](https://github.com/pytorch/pytorch/issues/91368) issue on Apple Silicon devices (i.e., post-2020 Macbooks). As a result, running models with pytorch for some period of time will gets slower and slower over time. Just for demonstration purpose, I'd recomment manually set pytorch device as 'cpu' because of this. Skip this step if you were confident this won't happen. <br>Since we are just doing demonstrations, we can simly set torch device as 'cpu':<br>*
-
 ```python
-torch.set_default_device('cpu')
+torch.set_default_device('cpu')  # or 'cuda' if you'd like to use GPU, would not recommend 'mps' (at least for torch<=2.9.1)
 ```
 
-And download the model:
+Download the model:
 ```python
 checkpoint = "openai-community/gpt2"
-tokenizer = AutoTokenizer.from_pretrained(checkpoint)
-model = AutoModelForCausalLM.from_pretrained(checkpoint)
-pipeline = TextGenerationPipeline(model=model, tokenizer=tokenizer, max_new_tokens=128)
+device = torch.get_default_device()
+pipe = pipeline(
+    'text-generation', 
+    model=checkpoint, 
+    device=device,
+    max_new_tokens=256,
+    repetition_penalty=1.5,
+    do_sample=True,
+    temperature=0.8
+    )
 ```
 
+The openai GPT2 model released on Huggingface doesn't come with some pretty import settings. We'll need to manually amend them first:
+```python
+pipe.generation_config.pad_token_id = pipe.tokenizer.eos_token_id
+pipe.generation_config.bos_token_id = pipe.tokenizer.eos_token_id
+```
+### Testing text generation
+We'll first test the text-generation model. Here's a little function to help with text generation. Basically, instead of returning the raw output (list of dictionaries), this function extracts the generated text and prints it directly, just for easier reading.
+```python
+def generate(text:str, **generate_kwargs) -> None:
+    """
+    Run text generation pipeline and print out the generated text.
+    """
+    result = pipe(text, **generate_kwargs)
+    print(result[0]['generated_text'])
+```
+
+...and now you can use this function to try out text generation yourself:
+```python
+generate("Who's that Pokemon!?!?", max_new_tokens=5)
+```
+Since we've set ```do_sample=True``` in our ```pipeline```, text generation is done through random-sampling. Model would generate slightly different answer everytime we run our ```generation``` function:
+```python
+for _ in range(5):
+    generate("Who's that Pokemon!?!?", max_new_tokens=5)
+```
+Your output would be very different from mine:
+
+```console
+Who's that Pokemon? Haha… This one
+Who's that Pokemon? I can't really recall
+Who's that Pokemon? It'll have a head
+Who's that Pokemon? I'm going to catch
+Who's that Pokemon?
+The first week has
+```
+
+*You can generate much longer text by setting 'max_new_tokens' to a higher number, note that the model basically generates typical Aİ slops when it's too large:*
+```python
+generate("If you saw something that doesn't look right,", max_new_tokens=1024)<br>
+```
 
 
 ## Quick recap on transformer architecture

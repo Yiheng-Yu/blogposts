@@ -17,7 +17,7 @@
 
 [highlight]
   noClasses = true
-  anchorLineNos = false
+  anchorLineNos = true
   codeFences = true
   guessSyntax = false
   hl_Lines = ''
