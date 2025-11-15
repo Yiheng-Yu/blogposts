@@ -376,7 +376,7 @@
     "keywords": ["huggingface","AI","ELI5"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "2894"
+    "wordCount": "3062"
   }]
   </script>
 
@@ -1036,7 +1036,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2025-10-31T00:00:00&#43;00:00">31 October 2025</time><span class="px-2 text-primary-500">&middot;</span><span>2894 words</span><span class="px-2 text-primary-500">&middot;</span><span>
+      <time datetime="2025-10-31T00:00:00&#43;00:00">31 October 2025</time><span class="px-2 text-primary-500">&middot;</span><span>3062 words</span><span class="px-2 text-primary-500">&middot;</span><span>
   
   
     
@@ -1179,16 +1179,21 @@
   <ul>
     <li><a href="#a-good-model-only-needs-to-be-useful">A good model only needs to be useful</a>
       <ul>
-        <li><a href="#try-it-out-its-uncanny-and-magical">Try it out! Its uncanny (and magical)</a></li>
+        <li>
+          <ul>
+            <li><a href="#demo-machine-translation-with-t5">Demo: Machine translation with T5</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#the-transformer-architecture">The Transformer Architecture</a>
       <ul>
-        <li><a href="#layer-by-layer">Layer-by-Layer</a></li>
-        <li><a href="#attention-head">Attention head</a></li>
-        <li><a href="#why-are-the-models-so-big">Why are the models so big?</a></li>
+        <li><a href="#overview-the-transformer-itself">Overview: <em>the</em> transformer itself</a></li>
+        <li><a href="#the-attention-head">The attention head</a></li>
       </ul>
     </li>
+    <li><a href="#why-are-the-models-so-big">Why are the models so big?</a></li>
+    <li><a href="#whats-up-next">What’s up next?<br></a></li>
     <li><a href="#some-other-resources">Some Other Resources</a></li>
   </ul>
 </nav>
@@ -1205,16 +1210,21 @@
   <ul>
     <li><a href="#a-good-model-only-needs-to-be-useful">A good model only needs to be useful</a>
       <ul>
-        <li><a href="#try-it-out-its-uncanny-and-magical">Try it out! Its uncanny (and magical)</a></li>
+        <li>
+          <ul>
+            <li><a href="#demo-machine-translation-with-t5">Demo: Machine translation with T5</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#the-transformer-architecture">The Transformer Architecture</a>
       <ul>
-        <li><a href="#layer-by-layer">Layer-by-Layer</a></li>
-        <li><a href="#attention-head">Attention head</a></li>
-        <li><a href="#why-are-the-models-so-big">Why are the models so big?</a></li>
+        <li><a href="#overview-the-transformer-itself">Overview: <em>the</em> transformer itself</a></li>
+        <li><a href="#the-attention-head">The attention head</a></li>
       </ul>
     </li>
+    <li><a href="#why-are-the-models-so-big">Why are the models so big?</a></li>
+    <li><a href="#whats-up-next">What’s up next?<br></a></li>
     <li><a href="#some-other-resources">Some Other Resources</a></li>
   </ul>
 </nav>
@@ -1284,19 +1294,20 @@ As someone without much backrounds in neither physics nor computer science, I fi
     target="_blank"
   >&lsquo;universal approximation theorem&rsquo;</a>). <br></p>
 
-<h3 class="relative group">Try it out! Its uncanny (and magical)
-    <div id="try-it-out-its-uncanny-and-magical" class="anchor"></div>
+<h4 class="relative group">Demo: Machine translation with T5
+    <div id="demo-machine-translation-with-t5" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#try-it-out-its-uncanny-and-magical" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#demo-machine-translation-with-t5" aria-label="Anchor">#</a>
     </span>
     
-</h3>
+</h4>
 <p>It is preciesly the reason why it&rsquo;s very suprising is that, transformers are able to produce pretty impressive results for tasks model that are not specifically trained for. You can try this out yourself. I&rsquo;ll use Flan-T5 as a demo here. Flan-T5 is a variation of T5 model that fine-tuned on instruction-specific tasks. That is, we can insert some instructions before our prompt and the model shall return different results based on different instructions.<br></p>
 <p>I&rsquo;ll use Python for the demo here because it&rsquo;s convinent. Before starting, you might want to install <code>transformers</code> if you haven&rsquo;t done aleady. It&rsquo;s a library collecting huge tone of open-sourced transformer models that allows you explore around.<br>
 Open terminal, run this command to install transformers:</p>
-<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pip install transformers
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pip install torch
+</span></span><span style="display:flex;"><span>pip install transformers
 </span></span></code></pre></div><p>The model I am going to use is <a
   href="https://arxiv.org/pdf/2210.11416"
     target="_blank"
@@ -1426,167 +1437,160 @@ For example, if one wants to do english-to-romanian translation, the model input
     </span>
     
 </h2>
-<p>We&rsquo;ll now take a look inside the transformer models and see what kind of math calculations is hapenning. <code>pytorch</code>, the python package that the T5 model in this demo is based off, provies very good tool for visulising model structures Using models mentioned from the previous section, if you want to look at what the model architecture, you can do so by running:</p>
-<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>pprint<span style="color:#89dceb;font-weight:bold">.</span>pp(pipe<span style="color:#89dceb;font-weight:bold">.</span>model)
-</span></span></code></pre></div><p>&hellip;which in term will give you this monstrous output:</p>
-<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>T5ForConditionalGeneration(
-</span></span><span style="display:flex;"><span>  (shared): <span style="color:#f9e2af">Embedding</span>(<span style="color:#fab387">32128</span>, <span style="color:#fab387">768</span>)
-</span></span><span style="display:flex;"><span>  (encoder): <span style="color:#f9e2af">T5Stack</span>(
-</span></span><span style="display:flex;"><span>    (embed_tokens): <span style="color:#f9e2af">Embedding</span>(<span style="color:#fab387">32128</span>, <span style="color:#fab387">768</span>)
-</span></span><span style="display:flex;"><span>    (block): <span style="color:#f9e2af">ModuleList</span>(
-</span></span><span style="display:flex;"><span>      (<span style="color:#fab387">0</span>): <span style="color:#f9e2af">T5Block</span>(
-</span></span><span style="display:flex;"><span>        (layer): <span style="color:#f9e2af">ModuleList</span>(
-</span></span><span style="display:flex;"><span>          (<span style="color:#fab387">0</span>): <span style="color:#f9e2af">T5LayerSelfAttention</span>(
-</span></span><span style="display:flex;"><span>            (SelfAttention): <span style="color:#f9e2af">T5Attention</span>(
-</span></span><span style="display:flex;"><span>              (q): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (k): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (v): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (o): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (relative_attention_bias): <span style="color:#f9e2af">Embedding</span>(<span style="color:#fab387">32</span>, <span style="color:#fab387">12</span>)
-</span></span><span style="display:flex;"><span>            )
-</span></span><span style="display:flex;"><span>            (layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
-</span></span><span style="display:flex;"><span>            (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>          )
-</span></span><span style="display:flex;"><span>          (<span style="color:#fab387">1</span>): <span style="color:#f9e2af">T5LayerFF</span>(
-</span></span><span style="display:flex;"><span>            (DenseReluDense): <span style="color:#f9e2af">T5DenseGatedActDense</span>(
-</span></span><span style="display:flex;"><span>              (wi_0): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (wi_1): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (wo): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (act): <span style="color:#f9e2af">NewGELUActivation</span>()
-</span></span><span style="display:flex;"><span>            )
-</span></span><span style="display:flex;"><span>            (layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
-</span></span><span style="display:flex;"><span>            (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>          )
-</span></span><span style="display:flex;"><span>        )
-</span></span><span style="display:flex;"><span>      )
-</span></span><span style="display:flex;"><span>      (<span style="color:#fab387">1</span><span style="color:#89dceb;font-weight:bold">-</span><span style="color:#fab387">11</span>): <span style="color:#fab387">11</span> x T5Block(
-</span></span><span style="display:flex;"><span>        (layer): <span style="color:#f9e2af">ModuleList</span>(
-</span></span><span style="display:flex;"><span>          (<span style="color:#fab387">0</span>): <span style="color:#f9e2af">T5LayerSelfAttention</span>(
-</span></span><span style="display:flex;"><span>            (SelfAttention): <span style="color:#f9e2af">T5Attention</span>(
-</span></span><span style="display:flex;"><span>              (q): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (k): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (v): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (o): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>            )
-</span></span><span style="display:flex;"><span>            (layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
-</span></span><span style="display:flex;"><span>            (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>          )
-</span></span><span style="display:flex;"><span>          (<span style="color:#fab387">1</span>): <span style="color:#f9e2af">T5LayerFF</span>(
-</span></span><span style="display:flex;"><span>            (DenseReluDense): <span style="color:#f9e2af">T5DenseGatedActDense</span>(
-</span></span><span style="display:flex;"><span>              (wi_0): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (wi_1): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (wo): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (act): <span style="color:#f9e2af">NewGELUActivation</span>()
-</span></span><span style="display:flex;"><span>            )
-</span></span><span style="display:flex;"><span>            (layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
-</span></span><span style="display:flex;"><span>            (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>          )
-</span></span><span style="display:flex;"><span>        )
-</span></span><span style="display:flex;"><span>      )
-</span></span><span style="display:flex;"><span>    )
-</span></span><span style="display:flex;"><span>    (final_layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
-</span></span><span style="display:flex;"><span>    (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>  )
-</span></span><span style="display:flex;"><span>  (decoder): <span style="color:#f9e2af">T5Stack</span>(
-</span></span><span style="display:flex;"><span>    (embed_tokens): <span style="color:#f9e2af">Embedding</span>(<span style="color:#fab387">32128</span>, <span style="color:#fab387">768</span>)
-</span></span><span style="display:flex;"><span>    (block): <span style="color:#f9e2af">ModuleList</span>(
-</span></span><span style="display:flex;"><span>      (<span style="color:#fab387">0</span>): <span style="color:#f9e2af">T5Block</span>(
-</span></span><span style="display:flex;"><span>        (layer): <span style="color:#f9e2af">ModuleList</span>(
-</span></span><span style="display:flex;"><span>          (<span style="color:#fab387">0</span>): <span style="color:#f9e2af">T5LayerSelfAttention</span>(
-</span></span><span style="display:flex;"><span>            (SelfAttention): <span style="color:#f9e2af">T5Attention</span>(
-</span></span><span style="display:flex;"><span>              (q): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (k): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (v): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (o): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (relative_attention_bias): <span style="color:#f9e2af">Embedding</span>(<span style="color:#fab387">32</span>, <span style="color:#fab387">12</span>)
-</span></span><span style="display:flex;"><span>            )
-</span></span><span style="display:flex;"><span>            (layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
-</span></span><span style="display:flex;"><span>            (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>          )
-</span></span><span style="display:flex;"><span>          (<span style="color:#fab387">1</span>): <span style="color:#f9e2af">T5LayerCrossAttention</span>(
-</span></span><span style="display:flex;"><span>            (EncDecAttention): <span style="color:#f9e2af">T5Attention</span>(
-</span></span><span style="display:flex;"><span>              (q): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (k): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (v): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (o): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>            )
-</span></span><span style="display:flex;"><span>            (layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
-</span></span><span style="display:flex;"><span>            (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>          )
-</span></span><span style="display:flex;"><span>          (<span style="color:#fab387">2</span>): <span style="color:#f9e2af">T5LayerFF</span>(
-</span></span><span style="display:flex;"><span>            (DenseReluDense): <span style="color:#f9e2af">T5DenseGatedActDense</span>(
-</span></span><span style="display:flex;"><span>              (wi_0): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (wi_1): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (wo): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (act): <span style="color:#f9e2af">NewGELUActivation</span>()
-</span></span><span style="display:flex;"><span>            )
-</span></span><span style="display:flex;"><span>            (layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
-</span></span><span style="display:flex;"><span>            (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>          )
-</span></span><span style="display:flex;"><span>        )
-</span></span><span style="display:flex;"><span>      )
-</span></span><span style="display:flex;"><span>      (<span style="color:#fab387">1</span><span style="color:#89dceb;font-weight:bold">-</span><span style="color:#fab387">11</span>): <span style="color:#fab387">11</span> x T5Block(
-</span></span><span style="display:flex;"><span>        (layer): <span style="color:#f9e2af">ModuleList</span>(
-</span></span><span style="display:flex;"><span>          (<span style="color:#fab387">0</span>): <span style="color:#f9e2af">T5LayerSelfAttention</span>(
-</span></span><span style="display:flex;"><span>            (SelfAttention): <span style="color:#f9e2af">T5Attention</span>(
-</span></span><span style="display:flex;"><span>              (q): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (k): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (v): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (o): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>            )
-</span></span><span style="display:flex;"><span>            (layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
-</span></span><span style="display:flex;"><span>            (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>          )
-</span></span><span style="display:flex;"><span>          (<span style="color:#fab387">1</span>): <span style="color:#f9e2af">T5LayerCrossAttention</span>(
-</span></span><span style="display:flex;"><span>            (EncDecAttention): <span style="color:#f9e2af">T5Attention</span>(
-</span></span><span style="display:flex;"><span>              (q): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (k): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (v): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (o): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>            )
-</span></span><span style="display:flex;"><span>            (layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
-</span></span><span style="display:flex;"><span>            (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>          )
-</span></span><span style="display:flex;"><span>          (<span style="color:#fab387">2</span>): <span style="color:#f9e2af">T5LayerFF</span>(
-</span></span><span style="display:flex;"><span>            (DenseReluDense): <span style="color:#f9e2af">T5DenseGatedActDense</span>(
-</span></span><span style="display:flex;"><span>              (wi_0): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (wi_1): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (wo): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>              (act): <span style="color:#f9e2af">NewGELUActivation</span>()
-</span></span><span style="display:flex;"><span>            )
-</span></span><span style="display:flex;"><span>            (layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
-</span></span><span style="display:flex;"><span>            (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>          )
-</span></span><span style="display:flex;"><span>        )
-</span></span><span style="display:flex;"><span>      )
-</span></span><span style="display:flex;"><span>    )
-</span></span><span style="display:flex;"><span>    (final_layer_norm): <span style="color:#f9e2af">T5LayerNorm</span>()
-</span></span><span style="display:flex;"><span>    (dropout): <span style="color:#f9e2af">Dropout</span>(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>  )
-</span></span><span style="display:flex;"><span>  (lm_head): <span style="color:#f9e2af">Linear</span>(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">32128</span>, bias<span style="color:#89dceb;font-weight:bold">=</span>False)
-</span></span><span style="display:flex;"><span>)
-</span></span></code></pre></div><p>T5 model belongs to a sub-category of transformers called &rsquo;encoder-decoder&rsquo;. That is, it&rsquo;s a combination of an encoder followed by a decoder. This post is a general introductions of the basics, and I&rsquo;ll talk about encoder/ decoders in more detail in more detail about this in the future.</p>
 
-<h3 class="relative group">Layer-by-Layer
-    <div id="layer-by-layer" class="anchor"></div>
+<h3 class="relative group">Overview: <em>the</em> transformer itself
+    <div id="overview-the-transformer-itself" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#layer-by-layer" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#overview-the-transformer-itself" aria-label="Anchor">#</a>
     </span>
     
 </h3>
-<p>The general structure of a transformer model lookes like this:<br></p>
-<ol>
-<li><bullet>The input gets converted into vectors or matrics. This conversion process can vary based on different types of inputs. It can simply be some sort of look-up tables (text embedding), some matrix transformations of the raw inputs (convolution) etc.</bullet></li>
-<li><bullet>The raw output from step (1) feeds into the multiple different attention layers. Mathematically, each attention layer is doing very much the same mathematical operation, with each layer having its own sets of parameters. Each layer takes a matrix as an input, and outputs another matrix to pass onto the next layer. This process is repeated multiple times.<bullet></li>
-<li><bullet>We convert the matrix output from step (2) into task-specific results we would like. This is usually done by another set of simple matrix operations, depending on the task. For example, if we are doing text sentimental analysis task, this operation could be a simple matrix multiplication, resulting in a final score of 0-10.</bullet></li>
-</ol>
-<p>A typical transformer neural network lookes like this:</p>
+<p>We&rsquo;ll now take a look inside the transformer models and see what kind of math calculations is hapenning. <code>pytorch</code>, the python package that the T5 model in this demo is based off, provies very good tool for visulising model structures Using models mentioned from the previous section, if you want to look at what the model actually lookes like, you can do so by running:</p>
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>pprint<span style="color:#89dceb;font-weight:bold">.</span>pp(pipe<span style="color:#89dceb;font-weight:bold">.</span>model)
+</span></span></code></pre></div><p>&hellip;which in term will give you this monstrous output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>T5ForConditionalGeneration(
+</span></span><span style="display:flex;"><span>  (shared): Embedding(<span style="color:#fab387">32128</span>, <span style="color:#fab387">768</span>)
+</span></span><span style="display:flex;"><span>  (encoder): T5Stack(
+</span></span><span style="display:flex;"><span>    (embed_tokens): Embedding(<span style="color:#fab387">32128</span>, <span style="color:#fab387">768</span>)
+</span></span><span style="display:flex;"><span>    (block): ModuleList(
+</span></span><span style="display:flex;"><span>      (<span style="color:#fab387">0</span>): T5Block(
+</span></span><span style="display:flex;"><span>        (layer): ModuleList(
+</span></span><span style="display:flex;"><span>          (<span style="color:#fab387">0</span>): T5LayerSelfAttention(
+</span></span><span style="display:flex;"><span>            (SelfAttention): T5Attention(
+</span></span><span style="display:flex;"><span>              (q): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (k): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (v): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (o): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (relative_attention_bias): Embedding(<span style="color:#fab387">32</span>, <span style="color:#fab387">12</span>)
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>            (layer_norm): T5LayerNorm()
+</span></span><span style="display:flex;"><span>            (dropout): Dropout(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>          )
+</span></span><span style="display:flex;"><span>          (<span style="color:#fab387">1</span>): T5LayerFF(
+</span></span><span style="display:flex;"><span>            (DenseReluDense): T5DenseGatedActDense(
+</span></span><span style="display:flex;"><span>              (wi_0): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (wi_1): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (wo): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (dropout): Dropout(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (act): NewGELUActivation()
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>            (layer_norm): T5LayerNorm()
+</span></span><span style="display:flex;"><span>            (dropout): Dropout(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>          )
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>      )
+</span></span><span style="display:flex;"><span>      (<span style="color:#fab387">1</span><span style="color:#89dceb;font-weight:bold">-</span><span style="color:#fab387">11</span>): <span style="color:#fab387">11</span> x T5Block(
+</span></span><span style="display:flex;"><span>        (layer): ModuleList(
+</span></span><span style="display:flex;"><span>          (<span style="color:#fab387">0</span>): T5LayerSelfAttention(
+</span></span><span style="display:flex;"><span>            (SelfAttention): T5Attention(
+</span></span><span style="display:flex;"><span>              (q): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (k): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (v): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (o): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>            (layer_norm): T5LayerNorm()
+</span></span><span style="display:flex;"><span>            (dropout): Dropout(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>          )
+</span></span><span style="display:flex;"><span>          (<span style="color:#fab387">1</span>): T5LayerFF(
+</span></span><span style="display:flex;"><span>            (DenseReluDense): T5DenseGatedActDense(
+</span></span><span style="display:flex;"><span>              (wi_0): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (wi_1): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (wo): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (dropout): Dropout(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (act): NewGELUActivation()
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>            (layer_norm): T5LayerNorm()
+</span></span><span style="display:flex;"><span>            (dropout): Dropout(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>          )
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>      )
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    (final_layer_norm): T5LayerNorm()
+</span></span><span style="display:flex;"><span>    (dropout): Dropout(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  (decoder): T5Stack(
+</span></span><span style="display:flex;"><span>    (embed_tokens): Embedding(<span style="color:#fab387">32128</span>, <span style="color:#fab387">768</span>)
+</span></span><span style="display:flex;"><span>    (block): ModuleList(
+</span></span><span style="display:flex;"><span>      (<span style="color:#fab387">0</span>): T5Block(
+</span></span><span style="display:flex;"><span>        (layer): ModuleList(
+</span></span><span style="display:flex;"><span>          (<span style="color:#fab387">0</span>): T5LayerSelfAttention(
+</span></span><span style="display:flex;"><span>            (SelfAttention): T5Attention(
+</span></span><span style="display:flex;"><span>              (q): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (k): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (v): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (o): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (relative_attention_bias): Embedding(<span style="color:#fab387">32</span>, <span style="color:#fab387">12</span>)
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>            (layer_norm): T5LayerNorm()
+</span></span><span style="display:flex;"><span>            (dropout): Dropout(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>          )
+</span></span><span style="display:flex;"><span>          (<span style="color:#fab387">1</span>): T5LayerCrossAttention(
+</span></span><span style="display:flex;"><span>            (EncDecAttention): T5Attention(
+</span></span><span style="display:flex;"><span>              (q): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (k): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (v): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (o): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>            (layer_norm): T5LayerNorm()
+</span></span><span style="display:flex;"><span>            (dropout): Dropout(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>          )
+</span></span><span style="display:flex;"><span>          (<span style="color:#fab387">2</span>): T5LayerFF(
+</span></span><span style="display:flex;"><span>            (DenseReluDense): T5DenseGatedActDense(
+</span></span><span style="display:flex;"><span>              (wi_0): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (wi_1): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (wo): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (dropout): Dropout(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (act): NewGELUActivation()
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>            (layer_norm): T5LayerNorm()
+</span></span><span style="display:flex;"><span>            (dropout): Dropout(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>          )
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>      )
+</span></span><span style="display:flex;"><span>      (<span style="color:#fab387">1</span><span style="color:#89dceb;font-weight:bold">-</span><span style="color:#fab387">11</span>): <span style="color:#fab387">11</span> x T5Block(
+</span></span><span style="display:flex;"><span>        (layer): ModuleList(
+</span></span><span style="display:flex;"><span>          (<span style="color:#fab387">0</span>): T5LayerSelfAttention(
+</span></span><span style="display:flex;"><span>            (SelfAttention): T5Attention(
+</span></span><span style="display:flex;"><span>              (q): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (k): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (v): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (o): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>            (layer_norm): T5LayerNorm()
+</span></span><span style="display:flex;"><span>            (dropout): Dropout(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>          )
+</span></span><span style="display:flex;"><span>          (<span style="color:#fab387">1</span>): T5LayerCrossAttention(
+</span></span><span style="display:flex;"><span>            (EncDecAttention): T5Attention(
+</span></span><span style="display:flex;"><span>              (q): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (k): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (v): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (o): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>            (layer_norm): T5LayerNorm()
+</span></span><span style="display:flex;"><span>            (dropout): Dropout(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>          )
+</span></span><span style="display:flex;"><span>          (<span style="color:#fab387">2</span>): T5LayerFF(
+</span></span><span style="display:flex;"><span>            (DenseReluDense): T5DenseGatedActDense(
+</span></span><span style="display:flex;"><span>              (wi_0): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (wi_1): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (wo): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">2048</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (dropout): Dropout(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>              (act): NewGELUActivation()
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>            (layer_norm): T5LayerNorm()
+</span></span><span style="display:flex;"><span>            (dropout): Dropout(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>          )
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>      )
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    (final_layer_norm): T5LayerNorm()
+</span></span><span style="display:flex;"><span>    (dropout): Dropout(p<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">0.1</span>, inplace<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  (lm_head): Linear(in_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">768</span>, out_features<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">32128</span>, bias<span style="color:#89dceb;font-weight:bold">=</span><span style="color:#fab387">False</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Despite its indimidate looks, at conceptual level, our T5 model is actually pretty simple. It does have a lot of layers, however, most of the layers are more or less the same, apart from the very beginning (<code>Embedding(32128, 768)</code>) and the very end (<code>lm_head</code>). Not only just T5, most of the popular transformer models that you heard of (GPT, Gemmini etc.,) all share similar three-stage structure like T5. Here&rsquo;s a simplified flow chart:</p>
 <body>
     <pre style="font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><code>╭─────────────────────────────────────────╮
 │                Embedding                │
@@ -1623,18 +1627,34 @@ For example, if one wants to do english-to-romanian translation, the model input
 ╰─────────────────────────────────────────╯
 </code></pre>
 </body>
-<p>What really makes transformers unique (and what&rsquo;s really confusing) is what&rsquo;s happenning in step 2, the so called &lsquo;attention layers&rsquo;. Each attention layer contains multiple attention heads, each of them operated independent from one another: they take output matrix from the previous layer as the input, do some mathematical calculations, and produce some transformed matrics. Matrices output from each of these attention heads are then joined together using some matrix merging functions. The joined matrix is the final output of the current layer.<br></p>
+<p>These three stages are:</p>
+<ol>
+<li><bullet><em>The input gets converted into vectors or matrics.</em><br>
+The first step starts with creating a mathematical representation of our input data. This process can vary based on different types of inputs. It can simply be some sort of look-up tables (text embedding), some matrix transformations of the raw inputs (convolution) etc. <br>
+In our T5 mdoel, this corresponds to the <em><code>Embedding(32128, 768)</code></em> shown in our T5 model, or the <em>&lsquo;Embedding&rsquo;</em> in the flow chart.<br></bullet></li>
+<li><bullet><em>The raw output from Stage 1 feeds into the multiple different attention layers.</em><br>
+Mathematically, each attention layer is doing very much the same mathematical operation, with each layer having its own sets of parameters. Each layer takes a matrix as an input, and outputs another matrix to pass onto the next layer. This process is repeated multiple times. Stage 2 is the core of a transformer model, it <em>transforms</em> our inputs into something else.<br>
+In our T5 model, this coressponds to the <em><code>encoder</code></em> and the <em><code>deocoder</code></em>, or the <em>&lsquo;Attention Layers&rsquo;</em> in the flow chart.
+<bullet></li>
+<li><bullet><em>We convert the matrix output from Stage 2 into task-specific results.</em><br>
+This is usually done by another set of simple matrix operations, depending on the task. For example, if we are doing text sentimental analysis task, this operation could be a simple matrix multiplication, resulting in a final score of 0-10.<br>
+In our T5 model, this coresspinds to the <em><code>lm_head</code></em> at the end of the T5, or the <em>Output</em> in the flow chart.
+</bullet><br></li>
+</ol>
+<p>In other words, you can concepturally see <strong>Stage 1</strong> as a conversion stage in order to initiate the model, <strong>Stage 2</strong> being the core of a transformer model, and <strong>Stage 3</strong> as a &lsquo;decoding&rsquo; step to convert the output back into human-readable form. The rest of the post will focus on <strong>Stage 2</strong>, the core, and I&rsquo;ll elabrate a lot more on what&rsquo;s hapenning in <strong>Stage 3</strong> in the next post.</p>
 
-<h3 class="relative group">Attention head
-    <div id="attention-head" class="anchor"></div>
+<h3 class="relative group">The attention head
+    <div id="the-attention-head" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#attention-head" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#the-attention-head" aria-label="Anchor">#</a>
     </span>
     
 </h3>
-<p>You can think each of the attention head as a mini neural network: it takes some inputs and spits out some outputs. A typical attention head works like this:</p>
+<p>Each attention layer consists of multiple attention heads <em>(<code>T5Attention</code>)</em>, each of them operated independent from one another: they take output matrix from the previous layer as the input, do some mathematical calculations, and output the transformed matrix. Outputs from each of the attention heads are then joined together <em>(<code>layer_norm</code>)</em>. The joined matrix is the final output of the current layer. <br></p>
+<p>You can think each of the attention head as a mini neural network. It takes some inputs and spits out some outputs.<br></p>
+<p>A typical attention head works like this:</p>
 <ol>
 <li><bullet>The input matrix gets converted into multiple matices through matrix multiplication. Most current transformers converts input matrix into three smaller matrices.</bullet></li>
 <li><bullet>Two of the matrix from step (1) gets combined together using some matrix operation, usually dot products.</bullet></li>
@@ -1664,7 +1684,7 @@ For example, if one wants to do english-to-romanian translation, the model input
 ╰──────────────────────────────────────────────╯</code></pre></p>
 </body>
 
-<h3 class="relative group">Why are the models so big?
+<h2 class="relative group">Why are the models so big?
     <div id="why-are-the-models-so-big" class="anchor"></div>
     
     <span
@@ -1672,16 +1692,25 @@ For example, if one wants to do english-to-romanian translation, the model input
         <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#why-are-the-models-so-big" aria-label="Anchor">#</a>
     </span>
     
-</h3>
+</h2>
 <p>I wanted to point out the (maybe) obvious thing here: almost all operations mentioned contain learnable parameters. Inside individual attention heads, the three matrics convreted by inputs are typically converted by multiplying (&lsquo;dot product&rsquo;) inputs with three <strong>separate</strong> matrices. These matrics are part of the learnable parameters for the attention head. When we combine matrices, the combination operation also has <a
   href="https://docs.pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html"
     target="_blank"
   >their own learnable parameters</a>. Furthermore, when we combining outputs from each &lsquo;attention heads&rsquo;, this combining opearation also has its own set of trainable parameters, so on and so on&hellip;Almost every stage of the matrix computations are parameterised, resulting the unbelievably <strong>massive</strong> Aİ models as of today.</p>
-<p><strong>So it&rsquo;s just a huge stacks of matirx calculations?</strong><br>
+<p><strong>So, it&rsquo;s just a huge stack of matirx calculation?</strong><br>
 In sense yes, it is. The three matrics in the attention head are commonly named as &lsquo;key&rsquo;. &lsquo;query&rsquo; and &lsquo;value&rsquo;, the idea behind these names are: &lsquo;user queries something, program looks for keys (i.e., keywords) to match with query, and value is whatever gets matched with&rsquo;. Honstly I found this explaination very confusing, although by design, it does (sort of) work in such way. My main skeptcisim is that, just because we vaguely designed it this way does not mean it is really what&rsquo;s happening underneath. As shown in the demo earlier, a model that&rsquo;s not trained for English-Spanish translation did have some ability to do English-Spanish translation, innit. We gave names to these matrics, we don&rsquo;t know much about their behaviour.<br></p>
-<p><strong>What&rsquo;s up next?</strong><br>
-I think this is a rather good place to conclude this post, so I&rsquo;ll leave it here for now. I hope you find it helpfull.<br></p>
-<p>There are still a bit more stuffs that I&rsquo;d like to share, like how text-generation works and what&rsquo;s really happenning when we are training a generative model. We&rsquo;ve heard of the same old things over and over: &lsquo;generative LLM is just a very massive auto-complete!&rsquo;. Whilst I do aggree with it, I also find it not helpful if one wants to <em>understand</em> text generation, for both model training and model inference. <em>If time alows&hellip;.</em></p>
+
+<h2 class="relative group">What&rsquo;s up next?<br>
+    <div id="whats-up-next" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#whats-up-next" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+<p>I think this is a rather good place to conclude this post, so I&rsquo;ll leave it here for now. I hope you find it helpfull.<br></p>
+<p>There are still a bit more stuffs that I&rsquo;d like to share, like how text-generation works and what&rsquo;s really happenning when we are training a generative model. We&rsquo;ve heard of the same old things over and over: <em>&lsquo;generative LLM is just a very massive auto-complete!&rsquo;</em>. Whilst I do aggree with it, I also find it not helpful if one wants to <em>understand</em> text generation, for both model training and model inference. In the next post, we&rsquo;ll have a look at the <strong>Stage 3</strong> for text generation.</p>
 
 <h2 class="relative group">Some Other Resources
     <div id="some-other-resources" class="anchor"></div>
